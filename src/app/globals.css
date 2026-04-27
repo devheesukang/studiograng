@@ -14,6 +14,7 @@ html[data-design="v1"] {
   --accent: #0A0A0A;
   --nav-initial-bg: transparent;
   --nav-scrolled-bg: rgba(248, 247, 244, 0.92);
+  --nav-fg: var(--fg);
   --grang-font-display: var(--font-cormorant);
   --grang-font-body: var(--font-inter);
   --grang-font-sub: var(--font-inter);
@@ -25,6 +26,7 @@ html.dark[data-design="v1"] {
   --line: #222220;
   --accent: #F0EDE8;
   --nav-scrolled-bg: rgba(12, 12, 12, 0.92);
+  --nav-fg: var(--fg);
 }
 
 /* ================================
@@ -38,6 +40,7 @@ html[data-design="v2"] {
   --accent: #C8A96E;
   --nav-initial-bg: rgba(8, 8, 8, 0.4);
   --nav-scrolled-bg: rgba(8, 8, 8, 0.88);
+  --nav-fg: rgba(255, 255, 255, 0.85);
   --grang-font-display: var(--font-bebas);
   --grang-font-body: var(--font-dm-sans);
   --grang-font-sub: var(--font-cormorant);
@@ -50,6 +53,7 @@ html.dark[data-design="v2"] {
   --accent: #C8A96E;
   --nav-initial-bg: rgba(8, 8, 8, 0.6);
   --nav-scrolled-bg: rgba(8, 8, 8, 0.95);
+  --nav-fg: rgba(255, 255, 255, 0.85);
 }
 
 /* ================================
@@ -64,6 +68,7 @@ html[data-design="v3"] {
   --rule: #1A1A1A;
   --nav-initial-bg: rgba(250, 250, 248, 1);
   --nav-scrolled-bg: rgba(250, 250, 248, 1);
+  --nav-fg: var(--fg);
   --grang-font-display: var(--font-playfair);
   --grang-font-body: var(--font-dm-sans);
   --grang-font-sub: var(--font-playfair);
@@ -77,6 +82,7 @@ html.dark[data-design="v3"] {
   --rule: #F4F2EE;
   --nav-initial-bg: rgba(20, 20, 18, 1);
   --nav-scrolled-bg: rgba(20, 20, 18, 1);
+  --nav-fg: var(--fg);
 }
 
 /* Tailwind v4 color + font tokens */

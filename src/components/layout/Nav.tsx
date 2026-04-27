@@ -54,6 +54,7 @@ export function Nav() {
           backdropFilter: scrolled ? 'blur(12px)' : 'none',
           WebkitBackdropFilter: scrolled ? 'blur(12px)' : 'none',
           borderBottom: scrolled ? '1px solid var(--line)' : '1px solid transparent',
+          color: 'var(--nav-fg)',
         }}
       >
         <nav className="max-w-screen-xl mx-auto px-6 h-[72px] flex items-center justify-between">
