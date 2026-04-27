@@ -229,8 +229,30 @@ npm run typecheck # tsc --noEmit
 ## Git Conventions
 
 - Branch: `main`
+- Remote: `git@github.com:devheesukang/grangstudio.git`
 - Commit format: `type: description` (feat, fix, style, content, refactor, chore)
 - Examples: `feat: add photography gallery filter`, `content: add watch project images`
+
+### Commit & Push Workflow
+
+Commit and push at every meaningful milestone — not just end of phase. Rule of thumb: if a component works independently, commit it. Never batch multiple completed components into one commit.
+
+**Within a phase, commit + push after each:**
+- New component is built and renders correctly
+- Dependency install or config change
+- Image organization batch (per category)
+- Content data file created or updated
+
+**Always push immediately after committing:**
+```bash
+git add <specific files>
+git commit -m "type: description
+
+Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>"
+git push
+```
+
+Never use `git add .` or `git add -A` — always stage specific files to avoid accidentally committing sensitive files or build artifacts.
 
 ## Deployment
 
@@ -246,6 +268,7 @@ Phases are completed sequentially. Each ends with a git commit. Check off tasks 
 > Goal: establish the full visual and technical base. Everything else inherits from this.
 
 - [ ] Scaffold Next.js 14+ project (`npx create-next-app@latest .` — TypeScript, Tailwind, App Router, src dir)
+- [ ] Add `notion_export/` to `.gitignore` (98MB source dump — not for version control)
 - [ ] Install dependencies: `next-themes`, `framer-motion`
 - [ ] Configure Tailwind: custom font variables, color tokens for light/dark, base spacing scale
 - [ ] Set up `next-themes` provider in root layout, `attribute="class"`, default `system`
