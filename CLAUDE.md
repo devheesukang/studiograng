@@ -297,27 +297,27 @@ Phases are completed sequentially. Each ends with a git commit. Check off tasks 
 - [x] **User review checkpoint** — approved: "Grang Studio" branding applied across all three variants
 - [x] Commit: `feat: phase 2 — hero section`
 
-### Phase 3 — Photography Gallery [ ]
+### Phase 3 — Photography Gallery [x]
 > Most complex phase. Requires image organization before wiring up the gallery.
 
-- [ ] Organize images: copy from `notion_export/bosun_portfolio/non_folderized/` into `public/images/<category>/` with clean English filenames (prefer `_크게` versions)
-- [ ] Write `src/lib/portfolio.ts`: typed `Project[]` array with all 13 photo categories, image paths, titles
-- [ ] Build `Photography` section with filter tab bar (All / Product / Portrait / Fine Art / Interior)
-- [ ] Build `GalleryGrid` component: responsive masonry or CSS grid (1→2→3 col)
-- [ ] Add scroll-reveal entrance animation on gallery items (Framer Motion)
-- [ ] Test all 13 categories filter correctly
-- [ ] Commit: `feat: phase 3 — photography gallery`
+- [x] Organize images: copy from `notion_export/bosun_portfolio/non_folderized/` into `public/images/<category>/` with clean English filenames (prefer `_크게` versions)
+- [x] Write `src/lib/portfolio.ts`: typed `Project[]` array with all 13 photo categories, image paths, titles
+- [x] Build `Photography` section with filter tab bar (All / Product / Portrait / Fine Art / Interior)
+- [x] Build `GalleryGrid` component: responsive masonry or CSS grid (1→2→3 col)
+- [x] Add scroll-reveal entrance animation on gallery items (Framer Motion)
+- [x] Test all 13 categories filter correctly
+- [x] Commit: `feat: phase 3 — photography gallery`
 
-### Phase 4 — Video, Design, Info + Polish [ ]
+### Phase 4 — Video, Design, Info + Polish [x]
 > Remaining sections. Bundle together then do final polish pass.
 
-- [ ] Build `Video` section: YouTube embed cards (`youtube-nocookie.com`), cinematic presentation, responsive
-- [ ] Build `Design` section: poster and illustration image grid
-- [ ] Build `Info` section: one-line bio, email, Instagram — absolute minimum, bottom of page
-- [ ] Global scroll experience polish: section transitions, animation timing, spacing rhythm
-- [ ] Audit all responsive breakpoints (mobile / tablet / desktop)
-- [ ] Performance check: `next build`, verify image optimization, no layout shift
-- [ ] Commit: `feat: phase 4 — video, design, info, polish`
+- [x] Build `Video` section: YouTube embed cards (`youtube-nocookie.com`), cinematic presentation, responsive
+- [x] Build `Design` section: poster and illustration image grid
+- [x] Build `Info` section: one-line bio, email — absolute minimum, bottom of page
+- [x] Global scroll experience polish: section transitions, animation timing, spacing rhythm
+- [x] Audit all responsive breakpoints (mobile / tablet / desktop)
+- [x] Performance check: `next build`, verify image optimization, no layout shift
+- [x] Commit: `feat: phase 4 — video, design, info, polish`
 
 ### Phase 5 — Deployment [ ]
 - [ ] Connect repo to Vercel
