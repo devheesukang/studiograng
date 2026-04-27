@@ -238,6 +238,64 @@ npm run typecheck # tsc --noEmit
 - Auto-deploy on push to `main`
 - No environment variables required at launch (no CMS, no auth)
 
+## Build Phases
+
+Phases are completed sequentially. Each ends with a git commit. Check off tasks as done.
+
+### Phase 1 — Foundation [ ]
+> Goal: establish the full visual and technical base. Everything else inherits from this.
+
+- [ ] Scaffold Next.js 14+ project (`npx create-next-app@latest .` — TypeScript, Tailwind, App Router, src dir)
+- [ ] Install dependencies: `next-themes`, `framer-motion`
+- [ ] Configure Tailwind: custom font variables, color tokens for light/dark, base spacing scale
+- [ ] Set up `next-themes` provider in root layout, `attribute="class"`, default `system`
+- [ ] Define global CSS: font imports (to be chosen), CSS custom properties for theme colors
+- [ ] Build `Nav` component: logo/wordmark left, anchor links center, theme toggle right — responsive (hamburger on mobile)
+- [ ] Build `ThemeToggle` component: sun/moon icon only, no label
+- [ ] Build `Footer` component: minimal — name, year, email
+- [ ] Verify light/dark switch works, no flash on load
+- [ ] Commit: `feat: phase 1 — foundation, layout, theme system`
+
+### Phase 2 — Hero + About [ ]
+> Checkpoint: review design direction before building remaining sections.
+
+- [ ] Build `Hero` section: full-viewport, name + title large type, subtle entrance animation
+- [ ] Build `About` section: profile photo (`next/image`), bio text, career timeline, skills grid
+- [ ] Confirm responsive layout on mobile / tablet / desktop
+- [ ] Confirm light/dark rendering looks correct on both sections
+- [ ] **User review checkpoint** — approve design direction before proceeding to Phase 3
+- [ ] Commit: `feat: phase 2 — hero and about sections`
+
+### Phase 3 — Photography Gallery [ ]
+> Most complex phase. Requires image organization before wiring up the gallery.
+
+- [ ] Organize images: copy from `notion_export/bosun_portfolio/non_folderized/` into `public/images/<category>/` with clean English filenames (prefer `_크게` versions)
+- [ ] Write `src/lib/portfolio.ts`: typed `Project[]` array with all 13 photo categories, image paths, titles
+- [ ] Build `Photography` section with filter tab bar (All / Product / Portrait / Fine Art / Interior)
+- [ ] Build `GalleryGrid` component: responsive masonry or CSS grid (1→2→3 col)
+- [ ] Add scroll-reveal entrance animation on gallery items (Framer Motion)
+- [ ] Test all 13 categories filter correctly
+- [ ] Commit: `feat: phase 3 — photography gallery`
+
+### Phase 4 — Video, Design, Awards, Contact [ ]
+> Remaining sections. Bundle together then do final polish pass.
+
+- [ ] Build `Video` section: YouTube embed cards (`youtube-nocookie.com`), title + year, responsive grid
+- [ ] Build `Design` section: image grid for 2D illustration/poster work
+- [ ] Build `Awards` section: list with title, award body, year, link to YouTube
+- [ ] Build `Contact` section: email, phone, minimal layout — no form needed
+- [ ] Global polish: audit all responsive breakpoints, refine spacing and animation timing
+- [ ] Performance check: `next build`, verify image optimization, no layout shift
+- [ ] Commit: `feat: phase 4 — video, design, awards, contact, polish`
+
+### Phase 5 — Deployment [ ]
+- [ ] Connect repo to Vercel
+- [ ] Verify production build on Vercel preview URL
+- [ ] Set custom domain if available
+- [ ] Commit: `chore: production deployment setup`
+
+---
+
 ## Notes
 
 - `notion_export/` is source-only — never import from it directly in the app
