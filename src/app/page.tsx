@@ -1,49 +1,52 @@
+import { Hero } from '@/components/sections/Hero'
+
 export default function Home() {
   return (
     <>
-      {/* Hero placeholder — Phase 2 */}
-      <section
-        id="hero"
-        className="min-h-screen flex items-center justify-center"
-        style={{ background: 'var(--bg)' }}
-      >
-        <p className="text-xs tracking-widest uppercase opacity-30">Hero — Phase 2</p>
-      </section>
+      <Hero />
 
-      {/* Photography */}
+      {/* Photography — Phase 3 */}
       <section
         id="photography"
         className="min-h-screen flex items-center justify-center border-t"
-        style={{ background: 'var(--bg)', borderColor: 'var(--line)' }}
+        style={{ borderColor: 'var(--line)' }}
       >
-        <p className="text-xs tracking-widest uppercase opacity-30">Photography — Phase 3</p>
+        <p className="text-[10px] tracking-widest uppercase opacity-30">
+          Photography — Phase 3
+        </p>
       </section>
 
-      {/* Video */}
+      {/* Video — Phase 4 */}
       <section
         id="video"
         className="min-h-screen flex items-center justify-center border-t"
-        style={{ background: 'var(--bg)', borderColor: 'var(--line)' }}
+        style={{ borderColor: 'var(--line)' }}
       >
-        <p className="text-xs tracking-widest uppercase opacity-30">Video — Phase 4</p>
+        <p className="text-[10px] tracking-widest uppercase opacity-30">
+          Video — Phase 4
+        </p>
       </section>
 
-      {/* Design */}
+      {/* Design — Phase 4 */}
       <section
         id="design"
         className="min-h-screen flex items-center justify-center border-t"
-        style={{ background: 'var(--bg)', borderColor: 'var(--line)' }}
+        style={{ borderColor: 'var(--line)' }}
       >
-        <p className="text-xs tracking-widest uppercase opacity-30">Design — Phase 4</p>
+        <p className="text-[10px] tracking-widest uppercase opacity-30">
+          Design — Phase 4
+        </p>
       </section>
 
-      {/* Info */}
+      {/* Info — Phase 4 */}
       <section
         id="info"
         className="min-h-[50vh] flex items-center justify-center border-t"
-        style={{ background: 'var(--bg)', borderColor: 'var(--line)' }}
+        style={{ borderColor: 'var(--line)' }}
       >
-        <p className="text-xs tracking-widest uppercase opacity-30">Info — Phase 4</p>
+        <p className="text-[10px] tracking-widest uppercase opacity-30">
+          Info — Phase 4
+        </p>
       </section>
     </>
   )
