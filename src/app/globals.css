@@ -1,0 +1,111 @@
+@import "tailwindcss";
+
+/* Class-based dark mode for next-themes */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ================================
+   DESIGN VARIANT: V1 — Minimal
+   ================================ */
+html[data-design="v1"] {
+  --bg: #F8F7F4;
+  --fg: #0A0A0A;
+  --muted: #8A8A8A;
+  --line: #E0DED9;
+  --accent: #0A0A0A;
+  --nav-initial-bg: transparent;
+  --nav-scrolled-bg: rgba(248, 247, 244, 0.92);
+  --grang-font-display: var(--font-cormorant);
+  --grang-font-body: var(--font-inter);
+  --grang-font-sub: var(--font-inter);
+}
+html.dark[data-design="v1"] {
+  --bg: #0C0C0C;
+  --fg: #F0EDE8;
+  --muted: #666660;
+  --line: #222220;
+  --accent: #F0EDE8;
+  --nav-scrolled-bg: rgba(12, 12, 12, 0.92);
+}
+
+/* ================================
+   DESIGN VARIANT: V2 — Cinematic
+   ================================ */
+html[data-design="v2"] {
+  --bg: #F2F0EB;
+  --fg: #111111;
+  --muted: #777777;
+  --line: #D8D5CF;
+  --accent: #C8A96E;
+  --nav-initial-bg: rgba(8, 8, 8, 0.4);
+  --nav-scrolled-bg: rgba(8, 8, 8, 0.88);
+  --grang-font-display: var(--font-bebas);
+  --grang-font-body: var(--font-dm-sans);
+  --grang-font-sub: var(--font-cormorant);
+}
+html.dark[data-design="v2"] {
+  --bg: #080808;
+  --fg: #EBEBEB;
+  --muted: #555555;
+  --line: #1A1A1A;
+  --accent: #C8A96E;
+  --nav-initial-bg: rgba(8, 8, 8, 0.6);
+  --nav-scrolled-bg: rgba(8, 8, 8, 0.95);
+}
+
+/* ================================
+   DESIGN VARIANT: V3 — Editorial
+   ================================ */
+html[data-design="v3"] {
+  --bg: #FAFAF8;
+  --fg: #1A1A1A;
+  --muted: #6B6B6B;
+  --line: #E8E6E1;
+  --accent: #1A1A1A;
+  --rule: #1A1A1A;
+  --nav-initial-bg: rgba(250, 250, 248, 1);
+  --nav-scrolled-bg: rgba(250, 250, 248, 1);
+  --grang-font-display: var(--font-playfair);
+  --grang-font-body: var(--font-dm-sans);
+  --grang-font-sub: var(--font-playfair);
+}
+html.dark[data-design="v3"] {
+  --bg: #141412;
+  --fg: #F4F2EE;
+  --muted: #888880;
+  --line: #2A2A28;
+  --accent: #F4F2EE;
+  --rule: #F4F2EE;
+  --nav-initial-bg: rgba(20, 20, 18, 1);
+  --nav-scrolled-bg: rgba(20, 20, 18, 1);
+}
+
+/* Tailwind v4 color + font tokens */
+@theme inline {
+  --color-surface: var(--bg);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --font-display: var(--grang-font-display, serif);
+  --font-body: var(--grang-font-body, sans-serif);
+  --font-sub: var(--grang-font-sub, sans-serif);
+}
+
+/* Base */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: var(--grang-font-body, sans-serif);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Smooth scroll offset for fixed nav */
+[id] {
+  scroll-margin-top: 72px;
+}
