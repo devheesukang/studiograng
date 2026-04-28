@@ -39,7 +39,7 @@ export function Photography() {
         transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
       >
         <p
-          className="text-[9px] tracking-[0.5em] uppercase mb-4"
+          className="text-xs tracking-[0.5em] uppercase mb-4"
           style={{ color: 'var(--muted)' }}
         >
           Photography
@@ -51,7 +51,7 @@ export function Photography() {
             <button
               key={group}
               onClick={() => setActive(group)}
-              className="px-4 py-1.5 text-[10px] tracking-widest uppercase transition-all duration-300"
+              className="px-5 py-2 text-xs tracking-widest uppercase transition-all duration-300"
               style={{
                 background: active === group ? 'var(--fg)' : 'transparent',
                 color: active === group ? 'var(--bg)' : 'var(--muted)',

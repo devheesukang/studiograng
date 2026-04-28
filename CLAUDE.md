@@ -363,9 +363,9 @@ Phases are completed sequentially. Each ends with a git commit. Check off tasks 
 - [x] Commit: `content: hide fine-art behind images from gallery`
 
 **Photography section — bigger text:**
-- [ ] `src/components/sections/Photography.tsx`: increase section label from `text-[9px]` to `text-xs` or `text-sm`
-- [ ] Increase filter button font from `text-[10px]` to `text-xs`, increase padding (`px-5 py-2` or similar)
-- [ ] Commit: `style: larger photography section heading and filter buttons`
+- [x] `src/components/sections/Photography.tsx`: increase section label from `text-[9px]` to `text-xs` or `text-sm`
+- [x] Increase filter button font from `text-[10px]` to `text-xs`, increase padding (`px-5 py-2` or similar)
+- [x] Commit: `style: larger photography section heading and filter buttons`
 
 **Info section — contact details:**
 - [ ] `src/components/sections/Info.tsx`: add `lowercase` class (or `style={{ textTransform: 'lowercase' }}`) to email `<a>` element
