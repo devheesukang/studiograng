@@ -27,7 +27,7 @@ const itemVariant = {
 
 export function GalleryGrid({ items }: GalleryGridProps) {
   return (
-    <div className="columns-1 sm:columns-2 lg:columns-3 gap-3 md:gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
       {items.map(({ src, alt }, i) => (
         <motion.div
           key={src}
@@ -36,7 +36,7 @@ export function GalleryGrid({ items }: GalleryGridProps) {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: '-60px' }}
-          className="break-inside-avoid mb-3 md:mb-4 overflow-hidden"
+          className="self-start overflow-hidden"
           style={{ border: '1px solid var(--line)' }}
           onContextMenu={(e) => e.preventDefault()}
         >

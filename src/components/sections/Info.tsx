@@ -20,7 +20,7 @@ export function Info() {
         />
 
         <motion.p
-          className="text-[9px] tracking-[0.5em] uppercase mb-5"
+          className="text-xs md:text-sm tracking-[0.35em] uppercase mb-5"
           style={{ color: 'var(--muted)' }}
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -67,14 +67,14 @@ export function Info() {
         >
           <a
             href="mailto:wolfkang0514@naver.com"
-            className="text-[10px] tracking-widest lowercase transition-opacity hover:opacity-60 inline-block"
+            className="text-sm md:text-base tracking-widest lowercase transition-opacity hover:opacity-60 inline-block"
             style={{ color: 'var(--fg)' }}
           >
             wolfkang0514@naver.com
           </a>
 
           <span
-            className="text-[10px] tracking-widest inline-block"
+            className="text-sm md:text-base tracking-widest inline-block"
             style={{ color: 'var(--muted)' }}
           >
             010-6401-0514
@@ -88,8 +88,8 @@ export function Info() {
             style={{ color: 'var(--muted)' }}
           >
             <svg
-              width="14"
-              height="14"
+              width="16"
+              height="16"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -101,7 +101,7 @@ export function Info() {
               <circle cx="12" cy="12" r="4" />
               <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" />
             </svg>
-            <span className="text-[10px] tracking-widest">studio.grang</span>
+            <span className="text-sm md:text-base tracking-widest">studio.grang</span>
           </a>
         </motion.div>
       </div>

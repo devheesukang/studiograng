@@ -22,8 +22,8 @@ html[data-design="v1"] {
 html.dark[data-design="v1"] {
   --bg: #080808;
   --fg: #EBEBEB;
-  --muted: #999999;
-  --line: #1A1A1A;
+  --muted: #C0C0C0;
+  --line: #333333;
   --accent: #C8A96E;
   --nav-initial-bg: rgba(8, 8, 8, 0.6);
   --nav-scrolled-bg: rgba(8, 8, 8, 0.95);

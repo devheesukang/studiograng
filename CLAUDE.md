@@ -386,6 +386,32 @@ Phases are completed sequentially. Each ends with a git commit. Check off tasks 
 - [x] Update hero image rule: all variants now use `foundation-1.jpg` as subtle background
 - [x] Commit: `chore: update CLAUDE.md for Phase 6 changes`
 
+### Phase 7 — Client Edit Round 2 [x]
+> Goal: investigate and prepare second round of client-requested visual fixes. Do not apply code changes until approved.
+
+**Gallery — AI filter layout:**
+- [x] Root cause: all 4 AI images are `768x1344`, very tall portrait images. Current `GalleryGrid` uses CSS columns/masonry (`columns-3`), which balances column heights instead of forcing row-by-row placement.
+- [x] With 4 equal-height tall items in 3 masonry columns, the browser can visually distribute them as 2 stacked images in one column and 2 stacked images in another, leaving the third column empty. This makes the AI filter look like 2 images per row even though the 3-column style exists.
+- [x] Fix: switch `GalleryGrid` from CSS columns to CSS grid (`grid-cols-1 sm:grid-cols-2 lg:grid-cols-3`) so the AI filter shows 3 images on the first row and 1 image on the second row.
+- [x] Tradeoff: CSS grid forces row-based layout and may reduce the masonry height variation that other gallery filters currently have.
+- [x] Alternative considered: keep masonry and add more AI images so the 3-column masonry distribution has enough items to fill out naturally.
+
+**Hero background image visibility:**
+- [x] Current issue: `public/images/cosmetics/foundation-1.jpg` is too invisible at the current subtle opacity (`opacity-[0.12]`).
+- [x] Fix: increase hero background opacity to `opacity-[0.32]`.
+- [x] Add an image-layer fade/mask toward the bottom so the image remains more visible through the main hero area but becomes more hidden behind the bottom gradient / large "Grang Studio" text area.
+
+**V1 dark mode text contrast:**
+- [x] Current issue: "Photography & Video Direction" in V1 dark mode is almost invisible because the font is thin and the muted color reads too faint.
+- [x] Current issue: the small "Photography" label above the filter buttons and inactive filter button text are also too invisible in V1 dark mode.
+- [x] Fix: update V1 dark mode muted text color from `#999999` to `#C0C0C0`.
+- [x] Fix: update V1 dark mode line/border color from `#1A1A1A` to `#333333` so inactive filter buttons have clearer borders.
+- [x] Ensure light/dark theme changes continue to use appropriate gray values per theme instead of one fixed color.
+
+**Info section typography:**
+- [x] Increase info section font sizes, including Photographer & Video Director, email, phone number, and Instagram handle.
+- [x] Commit: `fix: phase 7 client edit round 2`
+
 ---
 
 ## Notes

@@ -27,13 +27,19 @@ function HeroV1() {
       className="relative min-h-screen flex flex-col justify-end pb-20 px-8 md:px-16 overflow-hidden"
     >
       {/* Background image — atmospheric, not dominant */}
-      <div className="absolute inset-0 pointer-events-none">
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 62%, transparent 96%)',
+          maskImage: 'linear-gradient(to bottom, black 0%, black 62%, transparent 96%)',
+        }}
+      >
         <Image
           src={heroBg}
           alt=""
           fill
           priority
-          className="object-cover opacity-[0.12]"
+          className="object-cover opacity-[0.32]"
           sizes="100vw"
         />
       </div>
@@ -122,13 +128,19 @@ function HeroV2() {
       className="relative min-h-screen flex flex-col justify-end pb-20 px-8 md:px-16 overflow-hidden"
     >
       {/* Background image — atmospheric, not dominant */}
-      <div className="absolute inset-0 pointer-events-none">
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 62%, transparent 96%)',
+          maskImage: 'linear-gradient(to bottom, black 0%, black 62%, transparent 96%)',
+        }}
+      >
         <Image
           src={heroBg}
           alt=""
           fill
           priority
-          className="object-cover opacity-[0.12]"
+          className="object-cover opacity-[0.32]"
           sizes="100vw"
         />
       </div>
@@ -228,13 +240,19 @@ function HeroV3() {
       className="relative min-h-screen flex flex-col justify-center px-8 md:px-16 lg:px-24 overflow-hidden"
     >
       {/* Background image — atmospheric, not dominant */}
-      <div className="absolute inset-0 pointer-events-none">
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 62%, transparent 96%)',
+          maskImage: 'linear-gradient(to bottom, black 0%, black 62%, transparent 96%)',
+        }}
+      >
         <Image
           src={heroBg}
           alt=""
           fill
           priority
-          className="object-cover opacity-[0.12]"
+          className="object-cover opacity-[0.32]"
           sizes="100vw"
         />
       </div>
