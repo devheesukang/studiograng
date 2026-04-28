@@ -66,11 +66,11 @@ The site ships with **3 distinct design variants** so the client can compare and
 **The 3 variants:**
 | Variant | File | Personality | Display Font | Accent |
 |---|---|---|---|---|
-| V1 | `designs/v1-minimal.md` | Cinematic, dark/moody, dramatic scale — the approved direction | Bebas Neue | Gold `#C8A96E` |
-| V2 | `designs/v2-cinematic.md` | Embers — same cinematic energy, copper/rust accent, warmer earth tones | Bebas Neue | Copper `#C1714A` |
-| V3 | `designs/v3-editorial.md` | Slate — contemporary studio, geometric Syne font, cool slate-blue accent | Syne (new) | Slate `#6B8CAE` |
+| V1 | `designs/v1-minimal.md` | Cinematic / Gold — dark/moody, Bebas, dramatic scale | Bebas Neue | Gold `#C8A96E` |
+| V2 | `designs/v2-cinematic.md` | Embers / Copper — warm earth tones, copper accent | Bebas Neue | Copper `#C1714A` |
+| V3 | `designs/v3-editorial.md` | Slate / Contemporary — geometric Syne font, cool slate-blue | Syne | Slate `#6B8CAE` |
 
-**Hero image rule:** All three variants use `public/images/cosmetics/foundation-1.jpg` as a subtle full-bleed background (opacity ≈ 0.12). It is atmospheric texture, not a dominant image — type and content remain primary.
+**Hero image rule:** All three variants use `public/images/cosmetics/foundation-1.jpg` as a subtle full-bleed background (opacity ≈ 0.12). Placed with `next/image fill + object-cover + priority`, `absolute inset-0`. It is atmospheric texture, not a dominant image — type and content remain primary.
 
 Each variant's full spec (colors, fonts, spacing, animation style, layout details) lives in its own file under `designs/`. CLAUDE.md does not duplicate that detail here.
 
@@ -124,10 +124,10 @@ Prefer `_크게` (large) versions over `_복사` (copy) versions where both exis
 
 **Gallery groupings for UI filter tabs:**
 - All
-- Still Life (cosmetics, watch, glass, glasses, vase) — formerly "Product"
+- Still Life (cosmetics, watch, glass, glasses, vase) — filter key: `product`
 - Portrait
 - Fine Art (fine-art, light-painting, assignment)
-- AI (ai-work) — new dedicated tab
+- AI (ai-work) — filter key: `ai`
 - Interior (airbnb, rise-interior, rise-website)
 
 ### Video Projects
@@ -332,7 +332,7 @@ Phases are completed sequentially. Each ends with a git commit. Check off tasks 
 - [x] Verify production build on Vercel preview URL
 - [x] Commit: `chore: production deployment setup`
 
-### Phase 6 — Client Edit Round 1 [ ]
+### Phase 6 — Client Edit Round 1 [x]
 > Goal: apply first round of client-requested changes across design variants, gallery, and contact info.
 
 **Variant rotation & new designs:**
@@ -381,10 +381,10 @@ Phases are completed sequentially. Each ends with a git commit. Check off tasks 
 - [x] Commit: `feat: block right-click image download in gallery`
 
 **CLAUDE.md update:**
-- [ ] Update variant table to reflect V1=Cinematic/Gold, V2=Embers/Copper, V3=Slate/Syne
-- [ ] Update gallery groupings table: Product → Still Life, add AI row
-- [ ] Update hero image rule: all variants now use `foundation-1.jpg` as subtle background
-- [ ] Commit: `chore: update CLAUDE.md for Phase 6 changes`
+- [x] Update variant table to reflect V1=Cinematic/Gold, V2=Embers/Copper, V3=Slate/Syne
+- [x] Update gallery groupings table: Product → Still Life, add AI row
+- [x] Update hero image rule: all variants now use `foundation-1.jpg` as subtle background
+- [x] Commit: `chore: update CLAUDE.md for Phase 6 changes`
 
 ---
 
