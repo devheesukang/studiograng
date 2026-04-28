@@ -89,15 +89,6 @@ function HeroV2() {
       id="hero"
       className="relative min-h-screen flex flex-col justify-end pb-20 px-8 md:px-16 overflow-hidden"
     >
-      {/* Atmospheric dark background — hero image added in Phase 3 */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            'linear-gradient(160deg, #1e1b17 0%, #0d0b09 50%, #060504 100%)',
-        }}
-      />
-
       {/* Subtle noise grain */}
       <div
         className="absolute inset-0 opacity-[0.04] pointer-events-none"
@@ -115,11 +106,12 @@ function HeroV2() {
           variants={fadeUp}
           initial="hidden"
           animate="show"
-          className="leading-none text-white"
+          className="leading-none"
           style={{
             fontFamily: 'var(--font-bebas)',
             fontSize: 'clamp(5rem, 18vw, 18rem)',
             letterSpacing: '0.01em',
+            color: 'var(--fg)',
           }}
         >
           Grang Studio
@@ -133,7 +125,7 @@ function HeroV2() {
           className="mt-4 text-lg md:text-xl italic"
           style={{
             fontFamily: 'var(--font-cormorant)',
-            color: 'rgba(255,255,255,0.45)',
+            color: 'var(--muted)',
           }}
         >
           Photography &amp; Video Direction
@@ -156,7 +148,7 @@ function HeroV2() {
             height="18"
             viewBox="0 0 18 18"
             fill="none"
-            stroke="rgba(255,255,255,0.35)"
+            stroke="var(--muted)"
             strokeWidth="1.2"
           >
             <polyline points="4,7 9,12 14,7" />
@@ -180,83 +172,61 @@ function HeroV3() {
   return (
     <section
       id="hero"
-      className="min-h-screen flex flex-col md:flex-row border-b"
+      className="min-h-screen flex flex-col justify-center border-b px-8 md:px-16 lg:px-24"
       style={{ borderColor: 'var(--line)' }}
     >
-      {/* Left — text */}
-      <div className="flex-1 flex flex-col justify-center px-8 md:px-16 lg:px-24 py-32 md:py-0 order-2 md:order-1">
-        <div className="max-w-md">
-          {/* Editorial horizontal rule */}
-          <motion.div
-            className="w-10 h-px mb-10"
-            style={{ background: 'var(--fg)' }}
-            initial={{ scaleX: 0, originX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
-          />
+      <div className="max-w-md">
+        {/* Editorial horizontal rule */}
+        <motion.div
+          className="w-10 h-px mb-10"
+          style={{ background: 'var(--fg)' }}
+          initial={{ scaleX: 0, originX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
+        />
 
-          <motion.h1
-            custom={0}
-            variants={fadeUp}
-            initial="hidden"
-            animate="show"
-            className="leading-none"
-            style={{
-              fontFamily: 'var(--font-playfair)',
-              fontWeight: 700,
-              fontSize: 'clamp(3.5rem, 8vw, 7rem)',
-              color: 'var(--fg)',
-            }}
-          >
-            Grang
-            <br />
-            <em>Studio</em>
-          </motion.h1>
+        <motion.h1
+          custom={0}
+          variants={fadeUp}
+          initial="hidden"
+          animate="show"
+          className="leading-none"
+          style={{
+            fontFamily: 'var(--font-playfair)',
+            fontWeight: 700,
+            fontSize: 'clamp(3.5rem, 8vw, 7rem)',
+            color: 'var(--fg)',
+          }}
+        >
+          Grang
+          <br />
+          <em>Studio</em>
+        </motion.h1>
 
-          <motion.p
-            custom={1}
-            variants={fadeUp}
-            initial="hidden"
-            animate="show"
-            className="text-[10px] tracking-[0.4em] uppercase mt-7"
-            style={{ color: 'var(--muted)' }}
-          >
-            Photography &amp; Video Direction
-          </motion.p>
-
-          <motion.p
-            custom={2}
-            variants={fadeUp}
-            initial="hidden"
-            animate="show"
-            className="text-sm leading-relaxed mt-5"
-            style={{ color: 'var(--muted)', fontFamily: 'var(--font-dm-sans)' }}
-          >
-            Visual storytelling based in Seoul,
-            <br />
-            specializing in brand and content direction.
-          </motion.p>
-        </div>
-      </div>
-
-      {/* Right — image placeholder (filled in Phase 3) */}
-      <motion.div
-        className="w-full md:w-[55%] min-h-[45vh] md:min-h-screen flex items-center justify-center order-1 md:order-2 border-b md:border-b-0 md:border-l"
-        style={{
-          background: 'var(--line)',
-          borderColor: 'var(--line)',
-        }}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.2, delay: 0.2 }}
-      >
-        <span
-          className="text-[9px] tracking-widest uppercase"
+        <motion.p
+          custom={1}
+          variants={fadeUp}
+          initial="hidden"
+          animate="show"
+          className="text-[10px] tracking-[0.4em] uppercase mt-7"
           style={{ color: 'var(--muted)' }}
         >
-          Hero image — Phase 3
-        </span>
-      </motion.div>
+          Photography &amp; Video Direction
+        </motion.p>
+
+        <motion.p
+          custom={2}
+          variants={fadeUp}
+          initial="hidden"
+          animate="show"
+          className="text-sm leading-relaxed mt-5"
+          style={{ color: 'var(--muted)', fontFamily: 'var(--font-dm-sans)' }}
+        >
+          Visual storytelling based in Seoul,
+          <br />
+          specializing in brand and content direction.
+        </motion.p>
+      </div>
     </section>
   )
 }

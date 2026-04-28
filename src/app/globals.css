@@ -35,12 +35,12 @@ html.dark[data-design="v1"] {
 html[data-design="v2"] {
   --bg: #F2F0EB;
   --fg: #111111;
-  --muted: #777777;
+  --muted: #555555;
   --line: #D8D5CF;
   --accent: #C8A96E;
-  --nav-initial-bg: rgba(8, 8, 8, 0.4);
-  --nav-scrolled-bg: rgba(8, 8, 8, 0.88);
-  --nav-fg: rgba(255, 255, 255, 0.85);
+  --nav-initial-bg: transparent;
+  --nav-scrolled-bg: rgba(242, 240, 235, 0.92);
+  --nav-fg: var(--fg);
   --grang-font-display: var(--font-bebas);
   --grang-font-body: var(--font-dm-sans);
   --grang-font-sub: var(--font-cormorant);
@@ -48,7 +48,7 @@ html[data-design="v2"] {
 html.dark[data-design="v2"] {
   --bg: #080808;
   --fg: #EBEBEB;
-  --muted: #555555;
+  --muted: #999999;
   --line: #1A1A1A;
   --accent: #C8A96E;
   --nav-initial-bg: rgba(8, 8, 8, 0.6);
