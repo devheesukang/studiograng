@@ -170,8 +170,6 @@ export const projects: Project[] = [
       '/images/fine-art/fine-art-3.jpeg',
       '/images/fine-art/fine-art-4.jpeg',
       '/images/fine-art/fine-art-5.jpeg',
-      '/images/fine-art/fine-art-behind-1.jpg',
-      '/images/fine-art/fine-art-behind-2.jpg',
     ],
   },
   {

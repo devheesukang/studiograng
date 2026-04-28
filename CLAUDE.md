@@ -359,8 +359,8 @@ Phases are completed sequentially. Each ends with a git commit. Check off tasks 
 - [x] Commit: `feat: add AI filter tab, rename Product to Still Life`
 
 **Gallery — hide behind images:**
-- [ ] `src/lib/portfolio.ts`: remove `fine-art-behind-1.jpg` and `fine-art-behind-2.jpg` from the `fine-art` project's `images` array (files stay on disk)
-- [ ] Commit: `content: hide fine-art behind images from gallery`
+- [x] `src/lib/portfolio.ts`: remove `fine-art-behind-1.jpg` and `fine-art-behind-2.jpg` from the `fine-art` project's `images` array (files stay on disk)
+- [x] Commit: `content: hide fine-art behind images from gallery`
 
 **Photography section — bigger text:**
 - [ ] `src/components/sections/Photography.tsx`: increase section label from `text-[9px]` to `text-xs` or `text-sm`
