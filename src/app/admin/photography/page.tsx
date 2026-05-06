@@ -236,19 +236,11 @@ export default function PhotographyAdminPage() {
 
   async function deleteImage(projectId: string, src: string) {
     if (!confirm('Delete this image from the category?')) return
-    const blobPathname = getUploadedBlobPathname(src)
 
-    if (blobPathname) {
-      const res = await fetch('/api/admin/blob', {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ src }),
-      })
-
-      if (!res.ok) {
-        alert('Blob delete failed. The image was not removed.')
-        return
-      }
+    const deleted = await deleteUploadedBlob(src)
+    if (!deleted) {
+      alert('Blob delete failed. The image was not removed.')
+      return
     }
 
     updatePhotoConfig((photo) => ({
@@ -299,16 +291,37 @@ export default function PhotographyAdminPage() {
     }))
   }
 
-  function deleteFilterTab(key: string) {
-    updatePhotoConfig((photo) => {
-      const customProject = photo.projects.find((project) => (
-        project.id === key && !DEFAULT_PROJECT_IDS.has(project.id)
-      ))
-      if (customProject?.images.length) {
-        const confirmed = confirm('Delete this tab and its custom image category?')
-        if (!confirmed) return photo
-      }
+  async function deleteUploadedBlob(src: string): Promise<boolean> {
+    if (!getUploadedBlobPathname(src)) return true
 
+    const res = await fetch('/api/admin/blob', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ src }),
+    })
+
+    return res.ok
+  }
+
+  async function deleteFilterTab(key: string) {
+    const confirmed = confirm('Delete this tab? Custom categories will also delete uploaded Blob images inside them.')
+    if (!confirmed) return
+
+    const customProject = config?.photography.projects.find((project) => (
+      project.id === key && !DEFAULT_PROJECT_IDS.has(project.id)
+    ))
+
+    if (customProject?.images.length) {
+      const uploadedImages = customProject.images.filter((image) => getUploadedBlobPathname(image.src))
+      const deleted = await Promise.all(uploadedImages.map((image) => deleteUploadedBlob(image.src)))
+
+      if (deleted.some((ok) => !ok)) {
+        setStatus('error')
+        return
+      }
+    }
+
+    updatePhotoConfig((photo) => {
       const rest = { ...photo.filterLabels }
       delete rest[key]
       return {

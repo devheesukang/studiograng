@@ -1383,6 +1383,10 @@ Static portfolio images under `/images/...` are not Blob files and should not be
 
 When the admin deletes an image, the UI first confirms the action. If the image points to an uploaded Blob file, the admin page calls the delete API before removing the image from local config. If Blob deletion fails, the image stays in the category and the admin sees an error.
 
+**4. Custom category delete flow**
+
+When the admin deletes a custom tab/category, uploaded Blob images inside that category are deleted before the category is removed from config. Tab deletion uses one browser confirmation up front. If any Blob deletion fails, the category stays in place and the page status shows an error without opening a second alert.
+
 ---
 
 #### Checklist
@@ -1398,6 +1402,9 @@ When the admin deletes an image, the UI first confirms the action. If the image 
 - [x] Keep existing confirmation prompt
 - [x] Remove the image from config only after any required Blob delete succeeds
 - [x] Show an error if Blob deletion fails
+- [x] Delete uploaded Blob images inside a custom category before removing that category
+- [x] Keep the category if any Blob deletion fails during category removal
+- [x] Use only one browser confirmation for tab/category deletion
 
 **Verification:**
 - [x] Run production build check (`npm run build`)
