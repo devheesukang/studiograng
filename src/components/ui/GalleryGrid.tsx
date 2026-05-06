@@ -40,14 +40,13 @@ export function GalleryGrid({ items }: GalleryGridProps) {
           style={{ border: '1px solid var(--line)' }}
           onContextMenu={(e) => e.preventDefault()}
         >
-          <div className="relative w-full group cursor-pointer">
+          <div className="relative w-full group cursor-pointer" style={{ aspectRatio: '4 / 5' }}>
             <Image
               src={src}
               alt={alt}
-              width={800}
-              height={600}
+              fill
               draggable={false}
-              className="w-full h-auto block transition-transform duration-700 group-hover:scale-[1.03]"
+              className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />
             {/* Transparent overlay — deters casual right-click / drag download */}

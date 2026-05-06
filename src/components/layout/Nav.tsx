@@ -11,6 +11,15 @@ const NAV_LINKS = [
   { label: 'Info', href: '#info' },
 ]
 
+const NAV_HEIGHT = 72
+
+function scrollToSection(id: string) {
+  const el = document.getElementById(id)
+  if (!el) return
+  const top = el.getBoundingClientRect().top + window.scrollY - NAV_HEIGHT
+  window.scrollTo({ top, behavior: 'smooth' })
+}
+
 export function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
@@ -75,6 +84,7 @@ export function Nav() {
                 <li key={href}>
                   <a
                     href={href}
+                    onClick={(e) => { e.preventDefault(); scrollToSection(id) }}
                     className={`text-xs tracking-widest uppercase transition-opacity ${
                       activeSection === id ? 'opacity-100' : 'opacity-40 hover:opacity-80'
                     }`}
@@ -129,7 +139,7 @@ export function Nav() {
             <li key={href}>
               <a
                 href={href}
-                onClick={() => setMenuOpen(false)}
+                onClick={(e) => { e.preventDefault(); setMenuOpen(false); scrollToSection(href.slice(1)) }}
                 className="text-2xl tracking-widest uppercase opacity-80 hover:opacity-100 transition-opacity"
                 style={{ fontFamily: 'var(--grang-font-display)' }}
               >
