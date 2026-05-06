@@ -2,13 +2,23 @@
 
 import { useState, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { projects, FILTER_LABELS, type FilterGroup } from '@/lib/portfolio'
 import { GalleryGrid } from '@/components/ui/GalleryGrid'
 
-const FILTER_GROUPS: FilterGroup[] = ['all', 'cosmetics', 'product', 'portrait', 'fine-art', 'ai', 'interior']
+interface PhotoProject {
+  id: string
+  title: string
+  filterGroup: string
+  images: string[]
+}
 
-export function Photography() {
-  const [active, setActive] = useState<FilterGroup>('all')
+interface Props {
+  projects: PhotoProject[]
+  filterLabels: Record<string, string>
+  filterOrder: string[]
+}
+
+export function Photography({ projects, filterLabels, filterOrder }: Props) {
+  const [active, setActive] = useState<string>('all')
 
   const items = useMemo(() => {
     const filtered =
@@ -22,7 +32,7 @@ export function Photography() {
         alt: project.title,
       }))
     )
-  }, [active])
+  }, [active, projects])
 
   return (
     <section
@@ -47,7 +57,7 @@ export function Photography() {
 
         {/* Filter tabs */}
         <div className="flex flex-wrap gap-1">
-          {FILTER_GROUPS.map((group) => (
+          {filterOrder.map((group) => (
             <button
               key={group}
               onClick={() => setActive(group)}
@@ -59,7 +69,7 @@ export function Photography() {
                 borderColor: active === group ? 'var(--fg)' : 'var(--line)',
               }}
             >
-              {FILTER_LABELS[group]}
+              {filterLabels[group] ?? group}
             </button>
           ))}
         </div>

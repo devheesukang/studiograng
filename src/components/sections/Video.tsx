@@ -1,9 +1,9 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { videos, type VideoProject } from '@/lib/portfolio'
+import type { VideoConfig } from '@/lib/adminContent'
 
-function getEmbedUrl(video: VideoProject): string | null {
+function getEmbedUrl(video: VideoConfig): string | null {
   if (video.youtubeIds && video.youtubeIds.length > 0) {
     return `https://www.youtube-nocookie.com/embed/${video.youtubeIds[0]}?rel=0&modestbranding=1`
   }
@@ -16,7 +16,7 @@ function getEmbedUrl(video: VideoProject): string | null {
   return null
 }
 
-function VideoCard({ video, index }: { video: VideoProject; index: number }) {
+function VideoCard({ video, index }: { video: VideoConfig; index: number }) {
   const embedUrl = getEmbedUrl(video)
 
   return (
@@ -92,7 +92,11 @@ function VideoCard({ video, index }: { video: VideoProject; index: number }) {
   )
 }
 
-export function Video() {
+interface Props {
+  videos: VideoConfig[]
+}
+
+export function Video({ videos }: Props) {
   return (
     <section
       id="video"

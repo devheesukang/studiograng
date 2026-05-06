@@ -1,8 +1,13 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import type { ContentConfig } from '@/lib/adminContent'
 
-export function Info() {
+interface Props {
+  info: ContentConfig['info']
+}
+
+export function Info({ info }: Props) {
   return (
     <section
       id="info"
@@ -53,9 +58,7 @@ export function Info() {
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.2 }}
         >
-          Visual storyteller based in Seoul,
-          <br />
-          specializing in brand and content direction.
+          {info.bio}
         </motion.p>
 
         <motion.div
@@ -66,22 +69,22 @@ export function Info() {
           transition={{ duration: 0.7, delay: 0.28 }}
         >
           <a
-            href="mailto:wolfkang0514@naver.com"
+            href={`mailto:${info.email}`}
             className="text-sm md:text-base tracking-widest lowercase transition-opacity hover:opacity-60 inline-block"
             style={{ color: 'var(--fg)' }}
           >
-            wolfkang0514@naver.com
+            {info.email}
           </a>
 
           <span
             className="text-sm md:text-base tracking-widest inline-block"
             style={{ color: 'var(--muted)' }}
           >
-            010-6401-0514
+            {info.phone}
           </span>
 
           <a
-            href="https://www.instagram.com/studio.grang/"
+            href={`https://www.instagram.com/${info.instagram}/`}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 transition-opacity hover:opacity-60"
@@ -101,7 +104,7 @@ export function Info() {
               <circle cx="12" cy="12" r="4" />
               <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" />
             </svg>
-            <span className="text-sm md:text-base tracking-widest">studio.grang</span>
+            <span className="text-sm md:text-base tracking-widest">{info.instagram}</span>
           </a>
         </motion.div>
       </div>

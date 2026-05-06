@@ -889,10 +889,12 @@ Public site (gallery, video, info sections)
 - [x] Commit: `feat: admin content API — read/write Blob config, image upload`
 
 **Public site — read from Blob:**
-- [ ] Update `Photography` section to fetch config from Blob at render time (SSR); fall back to `portfolio.ts` if fetch fails
-- [ ] Update `Video` section to fetch config from Blob at render time (SSR); fall back to `portfolio.ts` if fetch fails
-- [ ] Update `Info` section to fetch config from Blob at render time (SSR); fall back to hardcoded defaults if fetch fails
-- [ ] Commit: `feat: public site reads live config from Vercel Blob`
+- [x] Update `page.tsx` to async server component — calls `getEffectiveConfig()`, passes data as props to each section
+- [x] Update `Photography` section: accept `projects`, `filterLabels`, `filterOrder` as props (no longer imports from `portfolio.ts`)
+- [x] Update `Video` section: accept `videos: VideoConfig[]` as props
+- [x] Update `Info` section: accept `info: ContentConfig['info']` as props (bio, email, phone, instagram driven by config)
+- [x] Set `export const revalidate = 0` on `page.tsx` so Blob config is always fresh
+- [x] Commit: `feat: public site reads live config from Vercel Blob`
 
 **Admin UI — Photography:**
 - [ ] Build `/admin/photography` page: list all categories, each showing its images in order
