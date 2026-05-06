@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import {
   DndContext,
   closestCenter,
@@ -16,9 +16,8 @@ import {
   arrayMove,
 } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import { AdminSaveBar } from '@/components/admin/AdminSaveBar'
-import { useAdminDirtyGuard } from '@/hooks/useAdminDirtyGuard'
-import type { ContentConfig, VideoConfig } from '@/lib/adminContent'
+import { useAdminContent } from '@/components/admin/AdminContentProvider'
+import type { VideoConfig } from '@/lib/adminContent'
 
 function toYouTubeWatchUrl(id: string): string {
   return `https://www.youtube.com/watch?v=${id}`
@@ -253,23 +252,11 @@ function VideoForm({
 }
 
 export default function VideosAdminPage() {
-  const [config, setConfig] = useState<ContentConfig | null>(null)
-  const [saving, setSaving] = useState(false)
-  const [status, setStatus] = useState<'idle' | 'saved' | 'error'>('idle')
+  const { config, setConfig, loading } = useAdminContent()
   const [editingId, setEditingId] = useState<string | null>(null)
   const [showAddForm, setShowAddForm] = useState(false)
-  const { dirty, markSaved } = useAdminDirtyGuard(config)
 
   const sensors = useSensors(useSensor(PointerSensor))
-
-  useEffect(() => {
-    fetch('/api/admin/content')
-      .then((r) => r.json())
-      .then((data) => {
-        setConfig(data)
-        markSaved(data)
-      })
-  }, [markSaved])
 
   function setVideos(updater: (prev: VideoConfig[]) => VideoConfig[]) {
     setConfig((prev) => (prev ? { ...prev, videos: updater(prev.videos) } : prev))
@@ -304,31 +291,7 @@ export default function VideosAdminPage() {
     setVideos((videos) => arrayMove(videos, oldIndex, newIndex))
   }
 
-  async function handleSave() {
-    if (!config) return
-    setSaving(true)
-    setStatus('idle')
-    try {
-      const res = await fetch('/api/admin/content', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(config),
-      })
-      if (res.ok) {
-        markSaved(config)
-        setStatus('saved')
-      } else {
-        setStatus('error')
-      }
-    } catch {
-      setStatus('error')
-    } finally {
-      setSaving(false)
-      setTimeout(() => setStatus('idle'), 3000)
-    }
-  }
-
-  if (!config) {
+  if (loading || !config) {
     return (
       <div className="flex items-center justify-center h-64">
         <span className="text-xs text-neutral-500 tracking-widest uppercase">Loading…</span>
@@ -338,7 +301,6 @@ export default function VideosAdminPage() {
 
   return (
     <div className="w-full overflow-x-hidden">
-      <AdminSaveBar title="Videos" status={status} saving={saving} dirty={dirty} onSave={handleSave} />
       <main className="w-full max-w-3xl mx-auto px-4 py-8 sm:px-6 sm:py-10">
 
         {showAddForm && (

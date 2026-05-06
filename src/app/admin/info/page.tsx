@@ -1,26 +1,12 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { AdminSaveBar } from '@/components/admin/AdminSaveBar'
-import { useAdminDirtyGuard } from '@/hooks/useAdminDirtyGuard'
+import { useAdminContent } from '@/components/admin/AdminContentProvider'
 import type { ContentConfig } from '@/lib/adminContent'
 
 type InfoConfig = ContentConfig['info']
 
 export default function InfoAdminPage() {
-  const [config, setConfig] = useState<ContentConfig | null>(null)
-  const [saving, setSaving] = useState(false)
-  const [status, setStatus] = useState<'idle' | 'saved' | 'error'>('idle')
-  const { dirty, markSaved } = useAdminDirtyGuard(config)
-
-  useEffect(() => {
-    fetch('/api/admin/content')
-      .then((r) => r.json())
-      .then((data) => {
-        setConfig(data)
-        markSaved(data)
-      })
-  }, [markSaved])
+  const { config, setConfig, loading } = useAdminContent()
 
   function updateInfo(key: keyof InfoConfig, value: string) {
     setConfig((prev) =>
@@ -28,31 +14,7 @@ export default function InfoAdminPage() {
     )
   }
 
-  async function handleSave() {
-    if (!config) return
-    setSaving(true)
-    setStatus('idle')
-    try {
-      const res = await fetch('/api/admin/content', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(config),
-      })
-      if (res.ok) {
-        markSaved(config)
-        setStatus('saved')
-      } else {
-        setStatus('error')
-      }
-    } catch {
-      setStatus('error')
-    } finally {
-      setSaving(false)
-      setTimeout(() => setStatus('idle'), 3000)
-    }
-  }
-
-  if (!config) {
+  if (loading || !config) {
     return (
       <div className="flex items-center justify-center h-64">
         <span className="text-xs text-neutral-500 tracking-widest uppercase">Loading…</span>
@@ -73,7 +35,6 @@ export default function InfoAdminPage() {
 
   return (
     <div className="w-full overflow-x-hidden">
-      <AdminSaveBar title="Info" status={status} saving={saving} dirty={dirty} onSave={handleSave} />
       <main className="w-full max-w-2xl mx-auto px-4 py-8 sm:px-6 sm:py-10">
 
         <div className="flex flex-col gap-5">

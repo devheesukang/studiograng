@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useRef } from 'react'
+import { useState, useRef } from 'react'
 import Image from 'next/image'
 import {
   DndContext,
@@ -17,8 +17,7 @@ import {
   arrayMove,
 } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import { AdminSaveBar } from '@/components/admin/AdminSaveBar'
-import { useAdminDirtyGuard } from '@/hooks/useAdminDirtyGuard'
+import { useAdminContent } from '@/components/admin/AdminContentProvider'
 import { projects as defaultProjects } from '@/lib/portfolio'
 import { getUploadedBlobPathname } from '@/lib/blobPath'
 import type { ContentConfig, ProjectConfig, ImageEntry } from '@/lib/adminContent'
@@ -193,21 +192,9 @@ function CategoryBlock({
 // ─── Main page ─────────────────────────────────────────────────────────────
 
 export default function PhotographyAdminPage() {
-  const [config, setConfig] = useState<ContentConfig | null>(null)
-  const [saving, setSaving] = useState(false)
-  const [status, setStatus] = useState<'idle' | 'saved' | 'error'>('idle')
+  const { config, setConfig, loading } = useAdminContent()
   const [newTabKey, setNewTabKey] = useState('')
   const [newTabLabel, setNewTabLabel] = useState('')
-  const { dirty, markSaved } = useAdminDirtyGuard(config)
-
-  useEffect(() => {
-    fetch('/api/admin/content')
-      .then((r) => r.json())
-      .then((data) => {
-        setConfig(data)
-        markSaved(data)
-      })
-  }, [markSaved])
 
   function updatePhotoConfig(updater: (prev: ContentConfig['photography']) => ContentConfig['photography']) {
     setConfig((prev) =>
@@ -322,7 +309,7 @@ export default function PhotographyAdminPage() {
       const deleted = await Promise.all(uploadedImages.map((image) => deleteUploadedBlob(image.src)))
 
       if (deleted.some((ok) => !ok)) {
-        setStatus('error')
+        alert('Blob delete failed. The category was not removed.')
         return
       }
     }
@@ -361,31 +348,7 @@ export default function PhotographyAdminPage() {
     }))
   }
 
-  async function handleSave() {
-    if (!config) return
-    setSaving(true)
-    setStatus('idle')
-    try {
-      const res = await fetch('/api/admin/content', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(config),
-      })
-      if (res.ok) {
-        markSaved(config)
-        setStatus('saved')
-      } else {
-        setStatus('error')
-      }
-    } catch {
-      setStatus('error')
-    } finally {
-      setSaving(false)
-      setTimeout(() => setStatus('idle'), 3000)
-    }
-  }
-
-  if (!config) {
+  if (loading || !config) {
     return (
       <div className="flex items-center justify-center h-64">
         <span className="text-xs text-neutral-500 tracking-widest uppercase">Loading…</span>
@@ -395,7 +358,6 @@ export default function PhotographyAdminPage() {
 
   return (
     <div className="w-full overflow-x-hidden">
-      <AdminSaveBar title="Photography" status={status} saving={saving} dirty={dirty} onSave={handleSave} />
       <main className="w-full max-w-3xl mx-auto px-4 py-8 sm:px-6 sm:py-10">
 
         {/* Filter label editor */}

@@ -1272,6 +1272,7 @@ Existing saved IDs are displayed back to the admin as normal YouTube URLs. On sa
 **Verification:**
 - [x] Run production build check (`npm run build`)
 - [x] Run lint check (`npm run lint`)
+- [x] Verify an unsaved design draft survives navigation from Design → Info → Design
 
 ---
 
@@ -1462,6 +1463,55 @@ The sticky Save button should be disabled when there are no unsaved changes or w
 - [x] Update `/admin/videos` to use sticky save bar and dirty-state guard
 - [x] Update `/admin/info` to use sticky save bar and dirty-state guard
 - [x] Update `/admin/design` to use sticky save bar and dirty-state guard
+
+**Verification:**
+- [x] Run production build check (`npm run build`)
+- [x] Run lint check (`npm run lint`)
+
+---
+
+### Phase 22 — Shared Admin Draft + Header Save Navigation
+> Goal: make admin edits persist across admin page navigation and move the Save action into a fixed admin header.
+
+#### Summary of changes
+
+**1. Shared admin draft state**
+
+Admin content config should be loaded once in the admin layout and stored in a shared client provider. Photography, Videos, Info, and Design pages all read/write the same draft config, so edits remain available while navigating between those admin pages.
+
+**2. One save for all admin changes**
+
+The fixed admin header owns the Save action. Because all edit pages share one draft config, the admin can change photography, videos, info, and design, then click Save once from the header.
+
+**3. Admin navigation layout**
+
+Desktop admin should use a fixed top header, similar to the public site structure. Mobile/tablet should keep a top bar with a right-side drawer for navigation.
+
+**4. Unsaved changes guard remains global**
+
+The dirty-state guard moves from individual pages to the shared provider, so browser refresh/tab close and internal navigation warnings are based on the full shared admin draft, not one page at a time.
+
+---
+
+#### Checklist
+
+**Shared admin content state:**
+- [x] Add admin content provider in the admin layout
+- [x] Load `/api/admin/content` once for protected admin pages
+- [x] Keep draft config when navigating among Photography, Videos, Info, and Design
+- [x] Save the shared draft once from the admin header
+
+**Admin header navigation:**
+- [x] Replace desktop sidebar with fixed desktop top header
+- [x] Add Save controls to the desktop/mobile admin header
+- [x] Use a right-side drawer for mobile/tablet navigation
+- [x] Remove per-page sticky save bars
+
+**Admin edit pages:**
+- [x] Update Photography page to use shared admin config
+- [x] Update Videos page to use shared admin config
+- [x] Update Info page to use shared admin config
+- [x] Update Design page to use shared admin config
 
 **Verification:**
 - [x] Run production build check (`npm run build`)

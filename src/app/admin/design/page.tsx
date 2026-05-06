@@ -1,9 +1,7 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { AdminSaveBar } from '@/components/admin/AdminSaveBar'
-import { useAdminDirtyGuard } from '@/hooks/useAdminDirtyGuard'
-import type { ContentConfig, Variant } from '@/lib/adminContent'
+import { useAdminContent } from '@/components/admin/AdminContentProvider'
+import type { Variant } from '@/lib/adminContent'
 
 const VARIANTS: { id: Variant; name: string; font: string; accent: string; accentHex: string }[] = [
   { id: 'v1', name: 'Cinematic / Gold', font: 'Bebas Neue', accent: 'Gold', accentHex: '#C8A96E' },
@@ -12,49 +10,13 @@ const VARIANTS: { id: Variant; name: string; font: string; accent: string; accen
 ]
 
 export default function DesignAdminPage() {
-  const [config, setConfig] = useState<ContentConfig | null>(null)
-  const [saving, setSaving] = useState(false)
-  const [status, setStatus] = useState<'idle' | 'saved' | 'error'>('idle')
-  const { dirty, markSaved } = useAdminDirtyGuard(config)
-
-  useEffect(() => {
-    fetch('/api/admin/content')
-      .then((r) => r.json())
-      .then((data) => {
-        setConfig(data)
-        markSaved(data)
-      })
-  }, [markSaved])
+  const { config, setConfig, loading } = useAdminContent()
 
   function selectVariant(v: Variant) {
     setConfig((prev) => (prev ? { ...prev, activeVariant: v } : prev))
   }
 
-  async function handleSave() {
-    if (!config) return
-    setSaving(true)
-    setStatus('idle')
-    try {
-      const res = await fetch('/api/admin/content', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(config),
-      })
-      if (res.ok) {
-        markSaved(config)
-        setStatus('saved')
-      } else {
-        setStatus('error')
-      }
-    } catch {
-      setStatus('error')
-    } finally {
-      setSaving(false)
-      setTimeout(() => setStatus('idle'), 3000)
-    }
-  }
-
-  if (!config) {
+  if (loading || !config) {
     return (
       <div className="flex items-center justify-center h-64">
         <span className="text-xs text-neutral-500 tracking-widest uppercase">Loading…</span>
@@ -64,7 +26,6 @@ export default function DesignAdminPage() {
 
   return (
     <div className="w-full overflow-x-hidden">
-      <AdminSaveBar title="Design Variant" status={status} saving={saving} dirty={dirty} onSave={handleSave} />
       <main className="w-full max-w-2xl mx-auto px-4 py-8 sm:px-6 sm:py-10">
 
         <p className="text-xs text-neutral-500 mb-8 leading-relaxed">
