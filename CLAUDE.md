@@ -881,10 +881,12 @@ Public site (gallery, video, info sections)
 - [x] Commit: `feat: admin auth — password login, session cookie, middleware`
 
 **Content API:**
-- [ ] Create `GET /api/admin/content`: read `content.json` from Blob; if not found, return merged default from `portfolio.ts`
-- [ ] Create `POST /api/admin/content`: write updated `content.json` to Blob
-- [ ] Create `POST /api/admin/upload`: receive image file, upload to Vercel Blob, return public URL
-- [ ] Commit: `feat: admin content API — read/write Blob config, image upload`
+- [x] Create `GET /api/admin/content`: read `content.json` from Blob; if not found, return merged default from `portfolio.ts`
+- [x] Create `POST /api/admin/content`: write updated `content.json` to Blob
+- [x] Create `POST /api/admin/upload`: receive image file, upload to Vercel Blob, return public URL
+- [x] Create `src/lib/adminContent.ts`: shared helpers — `buildDefaultConfig`, `readContentConfig`, `writeContentConfig`, `getEffectiveConfig`
+- [x] Create `src/lib/adminAuth.ts`: shared `verifyAdminSession` helper used by all API routes
+- [x] Commit: `feat: admin content API — read/write Blob config, image upload`
 
 **Public site — read from Blob:**
 - [ ] Update `Photography` section to fetch config from Blob at render time (SSR); fall back to `portfolio.ts` if fetch fails
