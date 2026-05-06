@@ -1,6 +1,6 @@
-# Grang Studio
+# Studio Grang
 
-Portfolio website for **Grang Studio** — a photography and video direction practice based in Seoul, South Korea.
+Portfolio website for **Studio Grang** — a photography and video direction practice based in Seoul, South Korea.
 
 The site is an art-viewing experience built for potential clients and companies to explore the studio's work across photography, video, and graphic design. The focus is entirely on the work itself, presented with minimal UI and intentional scroll experience.
 

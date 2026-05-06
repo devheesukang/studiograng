@@ -64,7 +64,7 @@ export function Nav() {
             className="text-xs tracking-[0.25em] uppercase font-body transition-opacity hover:opacity-60"
             style={{ fontFamily: 'var(--grang-font-body)' }}
           >
-            Grang Studio
+            Studio Grang
           </a>
 
           {/* Desktop links */}

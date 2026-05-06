@@ -1,10 +1,10 @@
-# Grang Studio — Portfolio Website
+# Studio Grang — Portfolio Website
 
 ## Project Overview
 
-Personal portfolio website for **Kang Bosun (강보선)**, photographer and video director, operating under the studio name **Grang Studio**. The site is a showcase for potential clients and companies to view her work.
+Personal portfolio website for **Kang Bosun (강보선)**, photographer and video director, operating under the studio name **Studio Grang**. The site is a showcase for potential clients and companies to view her work.
 
-- **Site name:** Grang Studio
+- **Site name:** Studio Grang
 - **Deployment:** Vercel (Next.js)
 - **Navigation style:** Single-page / SPA with anchor-based section navigation
 
@@ -94,7 +94,7 @@ Mobile-first. Three layouts:
 
 **What this site is not:** a résumé. No skills, no career timeline, no awards section, no education. Viewers are here to experience the work.
 
-**Branding rule — studio over person:** The site presents **Grang Studio** as the brand, not Kang Bosun as an individual. The photographer's name appears only once, in the minimal Info section at the bottom. Everywhere else — hero, nav wordmark, page title, metadata — the identity is "Grang Studio". Do not foreground the person's name in any section heading, hero, or prominent UI element.
+**Branding rule — studio over person:** The site presents **Studio Grang** as the brand, not Kang Bosun as an individual. The photographer's name appears only once, in the minimal Info section at the bottom. Everywhere else — hero, nav wordmark, page title, metadata — the identity is "Studio Grang". Do not foreground the person's name in any section heading, hero, or prominent UI element.
 
 Navigation: wordmark left, section links center, theme toggle right. Links scroll to anchors smoothly. Active section indicated subtly (not aggressively highlighted).
 
@@ -302,7 +302,7 @@ Phases are completed sequentially. Each ends with a git commit. Check off tasks 
 - [x] Confirm scroll transition from Hero into the next section feels intentional
 - [x] Confirm responsive layout on mobile / tablet / desktop
 - [x] Confirm light/dark rendering feels right (cinematic dark / editorial light)
-- [x] **User review checkpoint** — approved: "Grang Studio" branding applied across all three variants
+- [x] **User review checkpoint** — approved: "Studio Grang" branding applied across all three variants
 - [x] Commit: `feat: phase 2 — hero section`
 
 ### Phase 3 — Photography Gallery [x]
@@ -399,7 +399,7 @@ Phases are completed sequentially. Each ends with a git commit. Check off tasks 
 **Hero background image visibility:**
 - [x] Current issue: `public/images/cosmetics/foundation-1.jpg` is too invisible at the current subtle opacity (`opacity-[0.12]`).
 - [x] Fix: increase hero background opacity to `opacity-[0.52]`.
-- [x] Add an image-layer fade/mask toward the bottom so the image remains more visible through the main hero area but becomes more hidden behind the bottom gradient / large "Grang Studio" text area.
+- [x] Add an image-layer fade/mask toward the bottom so the image remains more visible through the main hero area but becomes more hidden behind the bottom gradient / large "Studio Grang" text area.
 
 **V1 dark mode text contrast:**
 - [x] Current issue: "Photography & Video Direction" in V1 dark mode is almost invisible because the font is thin and the muted color reads too faint.
@@ -418,5 +418,5 @@ Phases are completed sequentially. Each ends with a git commit. Check off tasks 
 
 - `notion_export/` is source-only — never import from it directly in the app
 - All UI text in English; Korean appears only in alt text or metadata where helpful for SEO
-- The studio name "Grang Studio" comes from 봉사활동 동아리 그랑 (volunteer club "Grang") which Bosun ran 2015–2022 — it's personal and meaningful
+- The studio name "Studio Grang" comes from 봉사활동 동아리 그랑 (volunteer club "Grang") which Bosun ran 2015–2022 — it's personal and meaningful
 - `npx plugins add vercel/vercel-plugin` run this for vercel plugin. also check for other mcp server or any add ons that would help for this project managment.

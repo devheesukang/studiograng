@@ -69,7 +69,7 @@ function HeroV1() {
             color: 'var(--fg)',
           }}
         >
-          Grang Studio
+          Studio Grang
         </motion.h1>
 
         <motion.p
@@ -179,7 +179,7 @@ function HeroV2() {
             color: 'var(--fg)',
           }}
         >
-          Grang Studio
+          Studio Grang
         </motion.h1>
 
         <motion.div
@@ -291,9 +291,9 @@ function HeroV3() {
             color: 'var(--fg)',
           }}
         >
-          Grang
-          <br />
           Studio
+          <br />
+          Grang
         </motion.h1>
 
         <motion.div

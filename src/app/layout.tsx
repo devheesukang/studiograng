@@ -47,7 +47,7 @@ const syne = Syne({
 })
 
 export const metadata: Metadata = {
-  title: 'Grang Studio',
+  title: 'Studio Grang',
   description: 'Photography & Video Direction by Kang Bosun',
 }
 
