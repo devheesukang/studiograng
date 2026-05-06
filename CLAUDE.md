@@ -142,12 +142,15 @@ Embed via `youtube-nocookie.com`. Show as cards with thumbnail + title + year.
 
 | Title | YouTube IDs | Year |
 |---|---|---|
+| 희망리턴패키지 59초 영화제 3등 수상작 (59-Second Film Festival — 3rd Place) | IIzokW_guBs | 2023 |
+| 공주시 홍보영상 장려수상작 (Gongju City Promotional Video) | JSfTl92wm8w | 2020 |
+| 인생백화점 1등 수상작 (Life Department Store — 1st Place) | dJSKauRC10Q | 2022 |
 | RISE Campus Tour | playlist: PLRwWCXTQW9LmoaKsVpJ91k8QDC94L4oi4; ids: NIfNigY9BTM, SpHT7xw2H_8, 40CKVKMa0GM, zYayAeEKgVU, ZsN0wKJjzwk, lwX0TnVOSIo, sPqSIZe9ZWA | — |
-| RISE 학부모 인터뷰 (Parent Interview) | SII47SSbrQ4, ocwCbBGUd3E, _xhvE1EbZlI, Bii3D2FXJgU, _ACOgVSNbFw | — |
 | RISE 학부모 강연 스케치 (Lecture Sketch) | QNbOoEFlRXY | 2024 |
-| 롯데월드 가을 시즌 홍보영상 (Lotte World Autumn) | 2nlyITLXdY0, opO4k4Wro9U, xL1va8khc-c | 2024 |
-| 롯데월드 겨울 시즌 홍보영상 (Lotte World Winter) | AtQdyh_kXz0, 2NIGykeWHKg, UeEYKEIezi8, X5-gw-XTbiI | 2024 |
+| RISE 학부모 인터뷰 (Parent Interview) | SII47SSbrQ4, ocwCbBGUd3E, _xhvE1EbZlI, Bii3D2FXJgU, _ACOgVSNbFw | — |
 | RISE 온라인 영어 강의 47편 (Online Lectures) | zbGUMiUtid0 | 2022 |
+| 롯데월드 겨울 시즌 홍보영상 (Lotte World Winter) | AtQdyh_kXz0, 2NIGykeWHKg, UeEYKEIezi8, X5-gw-XTbiI | 2024 |
+| 롯데월드 가을 시즌 홍보영상 (Lotte World Autumn) | 2nlyITLXdY0, opO4k4Wro9U, xL1va8khc-c | 2024 |
 | AI 활용 2D 그래픽 영상 제작 (AI-Assisted 2D Graphic Video) | 1GEKvSYF1qU | 2024 |
 
 ### 2D Design / Illustration

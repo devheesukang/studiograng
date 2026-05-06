@@ -182,17 +182,32 @@ export const projects: Project[] = [
 
 export const videos: VideoProject[] = [
   {
+    id: 'film-festival-3rd',
+    title: '59-Second Film Festival — 3rd Place',
+    titleKo: '희망리턴패키지 59초 영화제 3등 수상작',
+    year: '2023',
+    youtubeId: 'IIzokW_guBs',
+  },
+  {
+    id: 'gongju-promo',
+    title: 'Gongju City Promotional Video',
+    titleKo: '공주시 홍보영상 장려수상작',
+    year: '2020',
+    youtubeId: 'JSfTl92wm8w',
+  },
+  {
+    id: 'life-department-store',
+    title: 'Life Department Store — 1st Place',
+    titleKo: '인생백화점 1등 수상작',
+    year: '2022',
+    youtubeId: 'dJSKauRC10Q',
+  },
+  {
     id: 'rise-campus-tour',
     title: 'RISE Campus Tour',
     titleKo: 'RISE 캠퍼스 투어',
     playlistId: 'PLRwWCXTQW9LmoaKsVpJ91k8QDC94L4oi4',
     youtubeIds: ['NIfNigY9BTM', 'SpHT7xw2H_8', '40CKVKMa0GM', 'zYayAeEKgVU', 'ZsN0wKJjzwk', 'lwX0TnVOSIo', 'sPqSIZe9ZWA'],
-  },
-  {
-    id: 'rise-parent-interview',
-    title: 'RISE Parent Interview',
-    titleKo: 'RISE 학부모 인터뷰',
-    youtubeIds: ['SII47SSbrQ4', 'ocwCbBGUd3E', '_xhvE1EbZlI', 'Bii3D2FXJgU', '_ACOgVSNbFw'],
   },
   {
     id: 'rise-lecture-sketch',
@@ -202,11 +217,17 @@ export const videos: VideoProject[] = [
     youtubeId: 'QNbOoEFlRXY',
   },
   {
-    id: 'lotte-autumn',
-    title: 'Lotte World — Autumn Season',
-    titleKo: '롯데월드 가을 시즌 홍보영상',
-    year: '2024',
-    youtubeIds: ['2nlyITLXdY0', 'opO4k4Wro9U', 'xL1va8khc-c'],
+    id: 'rise-parent-interview',
+    title: 'RISE Parent Interview',
+    titleKo: 'RISE 학부모 인터뷰',
+    youtubeIds: ['SII47SSbrQ4', 'ocwCbBGUd3E', '_xhvE1EbZlI', 'Bii3D2FXJgU', '_ACOgVSNbFw'],
+  },
+  {
+    id: 'rise-online-lectures',
+    title: 'RISE Online English Lectures',
+    titleKo: 'RISE 온라인 영어 강의 47편',
+    year: '2022',
+    youtubeId: 'zbGUMiUtid0',
   },
   {
     id: 'lotte-winter',
@@ -216,11 +237,11 @@ export const videos: VideoProject[] = [
     youtubeIds: ['AtQdyh_kXz0', '2NIGykeWHKg', 'UeEYKEIezi8', 'X5-gw-XTbiI'],
   },
   {
-    id: 'rise-online-lectures',
-    title: 'RISE Online English Lectures',
-    titleKo: 'RISE 온라인 영어 강의 47편',
-    year: '2022',
-    youtubeId: 'zbGUMiUtid0',
+    id: 'lotte-autumn',
+    title: 'Lotte World — Autumn Season',
+    titleKo: '롯데월드 가을 시즌 홍보영상',
+    year: '2024',
+    youtubeIds: ['2nlyITLXdY0', 'opO4k4Wro9U', 'xL1va8khc-c'],
   },
   {
     id: 'ai-2d-video',
