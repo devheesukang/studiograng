@@ -30,7 +30,11 @@ export async function POST(request: NextRequest) {
 
   const { put } = await import('@vercel/blob')
   const filename = `uploads/${Date.now()}-${file.name.replace(/[^a-zA-Z0-9._-]/g, '_')}`
-  const blob = await put(filename, file, { access: 'public' })
+  const blob = await put(filename, file, {
+    access: 'private',
+    contentType: file.type,
+    addRandomSuffix: false,
+  })
 
-  return NextResponse.json({ url: blob.url })
+  return NextResponse.json({ url: `/api/blob/${blob.pathname}` })
 }

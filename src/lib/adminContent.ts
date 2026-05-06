@@ -73,17 +73,29 @@ export function buildDefaultConfig(): ContentConfig {
 }
 
 const BLOB_KEY = 'content.json'
+const BLOB_ACCESS = 'private'
+
+async function streamToText(stream: ReadableStream<Uint8Array>): Promise<string> {
+  const reader = stream.getReader()
+  const decoder = new TextDecoder()
+  let text = ''
+
+  while (true) {
+    const { done, value } = await reader.read()
+    if (done) break
+    text += decoder.decode(value, { stream: true })
+  }
+
+  return text + decoder.decode()
+}
 
 async function _readContentConfig(): Promise<ContentConfig | null> {
   if (!process.env.BLOB_READ_WRITE_TOKEN) return null
   try {
-    const { list } = await import('@vercel/blob')
-    const { blobs } = await list({ prefix: BLOB_KEY })
-    const blob = blobs.find((b) => b.pathname === BLOB_KEY)
-    if (!blob) return null
-    const res = await fetch(blob.url, { next: { revalidate: 0 } })
-    if (!res.ok) return null
-    return (await res.json()) as ContentConfig
+    const { get } = await import('@vercel/blob')
+    const result = await get(BLOB_KEY, { access: BLOB_ACCESS, useCache: false })
+    if (!result || result.statusCode !== 200) return null
+    return JSON.parse(await streamToText(result.stream)) as ContentConfig
   } catch {
     return null
   }
@@ -92,9 +104,10 @@ async function _readContentConfig(): Promise<ContentConfig | null> {
 export async function writeContentConfig(config: ContentConfig): Promise<void> {
   const { put } = await import('@vercel/blob')
   await put(BLOB_KEY, JSON.stringify(config), {
-    access: 'public',
+    access: BLOB_ACCESS,
     contentType: 'application/json',
     addRandomSuffix: false,
+    allowOverwrite: true,
   })
 }
 

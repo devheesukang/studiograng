@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { AdminThemeToggle } from './AdminThemeToggle'
 
 const LINKS = [
   { href: '/admin/photography', label: 'Photography' },
@@ -24,7 +25,7 @@ function NavLinks({ pathname, onNav }: { pathname: string; onNav?: () => void })
       <Link
         href="/admin/dashboard"
         onClick={onNav}
-        className="text-white text-xs tracking-[0.3em] uppercase font-light hover:opacity-70 transition-opacity mb-8"
+        className="text-white text-xs tracking-[0.3em] uppercase font-light hover:opacity-70 transition-opacity mb-8 truncate"
       >
         Studio Grang
       </Link>
@@ -50,14 +51,18 @@ function NavLinks({ pathname, onNav }: { pathname: string; onNav?: () => void })
       </nav>
 
       <div className="flex flex-col gap-1 mt-auto pt-6 border-t border-neutral-800">
-        <Link
+        <div className="px-3 py-2">
+          <AdminThemeToggle />
+        </div>
+        <a
           href="/"
           target="_blank"
           rel="noopener noreferrer"
+          onClick={onNav}
           className="px-3 py-2 text-xs tracking-widest uppercase text-neutral-500 hover:text-white transition-colors"
         >
           View Site ↗
-        </Link>
+        </a>
         <button
           onClick={handleLogout}
           className="px-3 py-2 text-xs tracking-widest uppercase text-neutral-500 hover:text-white transition-colors text-left"
@@ -81,16 +86,16 @@ export function AdminNav() {
       </aside>
 
       {/* Mobile top bar */}
-      <header className="flex md:hidden fixed top-0 inset-x-0 h-12 items-center justify-between px-4 border-b border-neutral-800 bg-neutral-950 z-40">
+      <header className="flex md:hidden fixed top-0 inset-x-0 h-12 items-center justify-between gap-4 px-4 border-b border-neutral-800 bg-neutral-950 z-40">
         <Link
           href="/admin/dashboard"
-          className="text-white text-xs tracking-[0.3em] uppercase font-light"
+          className="min-w-0 truncate text-white text-xs tracking-[0.3em] uppercase font-light"
         >
           Studio Grang
         </Link>
         <button
           onClick={() => setOpen((v) => !v)}
-          className="text-neutral-400 hover:text-white transition-colors p-1"
+          className="shrink-0 text-neutral-400 hover:text-white transition-colors p-1"
           aria-label="Toggle menu"
         >
           {open ? (
@@ -112,7 +117,7 @@ export function AdminNav() {
             className="fixed inset-0 bg-black/60 z-40 md:hidden"
             onClick={() => setOpen(false)}
           />
-          <aside className="fixed inset-y-0 left-0 w-48 flex flex-col bg-neutral-950 border-r border-neutral-800 px-5 py-6 z-50 md:hidden">
+          <aside className="fixed inset-y-0 left-0 w-48 max-w-[calc(100vw-3rem)] flex flex-col bg-neutral-950 border-r border-neutral-800 px-5 py-6 z-50 md:hidden">
             <NavLinks pathname={pathname} onNav={() => setOpen(false)} />
           </aside>
         </>

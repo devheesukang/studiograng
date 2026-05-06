@@ -41,7 +41,7 @@ function SortableImage({
     <div
       ref={setNodeRef}
       style={style}
-      className="flex items-center gap-3 border border-neutral-800 px-3 py-2"
+      className="flex min-w-0 items-center gap-3 border border-neutral-800 px-3 py-2"
     >
       {/* Drag handle */}
       <button
@@ -114,13 +114,13 @@ function CategoryBlock({
   }
 
   return (
-    <div className="border border-neutral-800 mb-6">
+    <div className="min-w-0 border border-neutral-800 mb-6">
       {/* Category header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-neutral-800 bg-neutral-900">
-        <span className="text-xs tracking-widest uppercase text-white">
+      <div className="flex flex-col gap-3 px-4 py-3 border-b border-neutral-800 bg-neutral-900 sm:flex-row sm:items-center sm:justify-between">
+        <span className="min-w-0 break-words text-xs tracking-widest uppercase text-white">
           {project.id} <span className="text-neutral-500">({project.images.length})</span>
         </span>
-        <div className="flex items-center gap-4">
+        <div className="flex flex-wrap items-center gap-4">
           <input
             ref={fileInputRef}
             type="file"
@@ -249,7 +249,8 @@ export default function PhotographyAdminPage() {
 
   function deleteFilterTab(key: string) {
     updatePhotoConfig((photo) => {
-      const { [key]: _, ...rest } = photo.filterLabels
+      const rest = { ...photo.filterLabels }
+      delete rest[key]
       return {
         ...photo,
         filterLabels: rest,
@@ -294,11 +295,11 @@ export default function PhotographyAdminPage() {
   }
 
   return (
-    <div>
-      <main className="max-w-3xl mx-auto px-6 py-12">
-        <div className="flex items-center justify-between mb-10">
+    <div className="w-full overflow-x-hidden">
+      <main className="w-full max-w-3xl mx-auto px-4 py-10 sm:px-6 sm:py-12">
+        <div className="flex flex-col gap-4 mb-10 sm:flex-row sm:items-center sm:justify-between">
           <h1 className="text-xs tracking-[0.5em] uppercase text-neutral-500">Photography</h1>
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center gap-3 sm:gap-4">
             {status === 'saved' && (
               <span className="text-xs text-emerald-400 tracking-widest uppercase">Saved</span>
             )}
@@ -323,7 +324,7 @@ export default function PhotographyAdminPage() {
               const label = config.photography.filterLabels[key] ?? key
               const isDeletable = key !== 'all'
               return (
-                <div key={key} className="flex items-center gap-2 border border-neutral-800 px-3 py-2">
+                <div key={key} className="flex min-w-0 items-center gap-2 border border-neutral-800 px-3 py-2">
                   <span className="text-xs text-neutral-600 w-24 shrink-0 font-mono">{key}</span>
                   <input
                     type="text"
@@ -346,20 +347,20 @@ export default function PhotographyAdminPage() {
           </div>
 
           {/* Add new filter tab */}
-          <div className="flex gap-2 items-center border border-dashed border-neutral-700 px-3 py-2">
+          <div className="flex flex-col gap-2 border border-dashed border-neutral-700 px-3 py-2 sm:flex-row sm:items-center">
             <input
               type="text"
               value={newTabKey}
               onChange={(e) => setNewTabKey(e.target.value.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''))}
               placeholder="key (e.g. commercial)"
-              className="bg-transparent text-xs text-white outline-none w-36 border-b border-transparent focus:border-neutral-600 placeholder:text-neutral-700"
+              className="w-full min-w-0 bg-transparent text-xs text-white outline-none border-b border-transparent focus:border-neutral-600 placeholder:text-neutral-700 sm:w-36 sm:shrink-0"
             />
             <input
               type="text"
               value={newTabLabel}
               onChange={(e) => setNewTabLabel(e.target.value)}
               placeholder="Label (e.g. Commercial)"
-              className="bg-transparent text-xs text-white outline-none flex-1 min-w-0 border-b border-transparent focus:border-neutral-600 placeholder:text-neutral-700"
+              className="w-full min-w-0 bg-transparent text-xs text-white outline-none border-b border-transparent focus:border-neutral-600 placeholder:text-neutral-700 sm:flex-1"
             />
             <button
               onClick={() => {

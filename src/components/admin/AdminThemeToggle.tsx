@@ -1,26 +1,16 @@
 'use client'
 
-import { useTheme } from 'next-themes'
-import { useEffect, useState } from 'react'
+import { useAdminTheme } from './AdminTheme'
 
-export function ThemeToggle() {
-  const { setTheme, resolvedTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    const frame = requestAnimationFrame(() => setMounted(true))
-    return () => cancelAnimationFrame(frame)
-  }, [])
-
-  if (!mounted) return <div className="w-8 h-8" />
-
-  const isDark = resolvedTheme === 'dark'
+export function AdminThemeToggle() {
+  const { theme, toggleTheme } = useAdminTheme()
+  const isDark = theme === 'dark'
 
   return (
     <button
-      onClick={() => setTheme(isDark ? 'light' : 'dark')}
-      aria-label="Toggle theme"
-      className="w-8 h-8 flex items-center justify-center transition-opacity opacity-60 hover:opacity-100"
+      onClick={toggleTheme}
+      aria-label="Toggle admin theme"
+      className="flex h-8 w-8 items-center justify-center text-neutral-500 transition-colors hover:text-white"
     >
       {isDark ? (
         <svg width="15" height="15" viewBox="0 0 15 15" fill="none" stroke="currentColor" strokeWidth="1.2">

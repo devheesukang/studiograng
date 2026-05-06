@@ -1099,6 +1099,141 @@ Two changes:
 
 ---
 
+### Phase 13 — Admin No-Overflow Responsive Pass
+> Goal: fix remaining admin UI breakage on very narrow widths so admin pages stay responsive and never create horizontal document overflow.
+
+#### Summary of changes
+
+**1. Admin shell viewport containment**
+
+The admin layout should constrain the admin surface to the viewport. The shell gets `w-full`, `min-w-0`, and `overflow-x-hidden` where needed so a child row cannot push the whole admin document wider than the screen.
+
+**2. Mobile-first admin page chrome**
+
+All admin page wrappers use smaller mobile padding and full-width constrained mains. Page headers switch from one fixed row to a wrapping column/row layout so long titles, save status text, and Save buttons can wrap naturally at narrow widths.
+
+**3. Dense row wrapping**
+
+Sortable admin rows, especially `/admin/videos`, use mobile-first wrapping. The drag handle and primary title remain on the first line; metadata and actions wrap below on small screens and return to inline layout on larger screens.
+
+**4. Flexible controls**
+
+Forms, filter editors, category headers, variant cards, and repeated controls use `min-w-0`, responsive widths, truncation, or wrapping so long titles, filenames, labels, and placeholders remain inside their containers.
+
+---
+
+#### Checklist
+
+**Admin shell containment:**
+- [x] Update `src/app/admin/layout.tsx` with `w-full`, `min-w-0`, and admin-scoped `overflow-x-hidden`
+- [x] Tighten `AdminNav` mobile top bar/drawer so the wordmark truncates and the drawer cannot exceed viewport width
+
+**Admin page responsive chrome:**
+- [x] Update `/admin/dashboard` page wrapper and cards for full-width mobile layout
+- [x] Update `/admin/photography` page wrapper and header controls for wrapping mobile layout
+- [x] Update `/admin/videos` page wrapper and header controls for wrapping mobile layout
+- [x] Update `/admin/info` page wrapper and header controls for wrapping mobile layout
+- [x] Update `/admin/design` page wrapper, header controls, and variant cards for wrapping mobile layout
+
+**Dense admin controls:**
+- [x] Update video sortable rows so year/actions wrap below titles on small screens
+- [x] Update video form action buttons to wrap on small screens
+- [x] Update photography category headers, image rows, and filter add form to avoid fixed-width overflow
+
+**Verification:**
+- [x] Run production build check (`npm run build`)
+- [x] Run lint check (`npm run lint`)
+- [x] Verify narrow viewport no-overflow behaviour for `/admin/videos`, `/admin/photography`, `/admin/info`, `/admin/design`, and `/admin/dashboard`
+
+---
+
+### Phase 14 — Private Vercel Blob Store Compatibility
+> Goal: fix admin save/upload failures when the Vercel Blob store is configured with private access.
+
+#### Summary of changes
+
+**1. Private admin content config**
+
+`content.json` is internal site configuration and should be written as a private blob. Admin saves use `access: 'private'` and `allowOverwrite: true`; server reads use the Blob SDK `get()` helper with `access: 'private'` instead of fetching a public blob URL.
+
+**2. Private upload handling**
+
+Admin image uploads also use `access: 'private'` so they work with the configured private store. The upload API returns an app-local URL instead of the raw Blob URL.
+
+**3. Public image proxy for uploads**
+
+Because the portfolio is public but the Blob store is private, uploaded images are served through `/api/blob/uploads/*`. The proxy only allows `uploads/` paths and does not expose `content.json` or other private blob keys.
+
+---
+
+#### Checklist
+
+**Content config Blob access:**
+- [x] Update `writeContentConfig()` to put `content.json` with `access: 'private'`
+- [x] Add `allowOverwrite: true` so repeated admin saves update the same config blob
+- [x] Update config reads to use authenticated `get(..., { access: 'private', useCache: false })`
+
+**Admin uploads:**
+- [x] Update `/api/admin/upload` to upload files with `access: 'private'`
+- [x] Return an app-local `/api/blob/uploads/...` URL for uploaded images
+
+**Private upload proxy:**
+- [x] Add `/api/blob/[...pathname]` route for serving private uploaded images
+- [x] Restrict the proxy to `uploads/` paths only
+
+**Verification:**
+- [x] Run production build check (`npm run build`)
+- [x] Verify authenticated `POST /api/admin/content` succeeds against the private Blob store
+- [x] Re-run lint check (`npm run lint`)
+
+---
+
+### Phase 15 — Admin Theme Toggle
+> Goal: add a dark/light mode toggle to admin that behaves like the public site toggle but only affects admin pages.
+
+#### Summary of changes
+
+**1. Admin-only theme state**
+
+Admin theme state is stored separately from the public site theme using the `studio-grang-admin-theme` localStorage key. It does not use or mutate the public `next-themes` state.
+
+**2. Admin theme toggle placement**
+
+The admin theme toggle appears in the sidebar/drawer action area directly above the View Site link. It uses the same sun/moon icon language as the public site toggle.
+
+**3. Admin light theme styling**
+
+The existing admin UI uses neutral dark utility classes. Admin-scoped CSS overrides under `.admin-shell[data-admin-theme="light"]` provide a light admin surface without affecting the public portfolio.
+
+**4. View Site external navigation**
+
+The View Site action uses a plain anchor with `target="_blank"` and `rel="noopener noreferrer"` so it reliably opens the public portfolio in a new tab.
+
+---
+
+#### Checklist
+
+**Admin theme state:**
+- [x] Add `AdminThemeProvider` with admin-only localStorage state
+- [x] Wrap `src/app/admin/layout.tsx` with the admin theme provider
+
+**Admin toggle UI:**
+- [x] Add `AdminThemeToggle` with sun/moon icons matching the public toggle
+- [x] Place the toggle above View Site in `AdminNav`
+
+**Admin theme styling:**
+- [x] Add admin-scoped light theme CSS overrides in `globals.css`
+- [x] Keep public site theme state and styling untouched
+
+**View Site navigation:**
+- [x] Change View Site to a plain external-tab anchor
+
+**Verification:**
+- [x] Run production build check (`npm run build`)
+- [x] Run lint check (`npm run lint`)
+
+---
+
 ## Notes
 - All UI text in English; Korean appears only in alt text or metadata where helpful for SEO
 - The studio name "Studio Grang" comes from 봉사활동 동아리 그랑 (volunteer club "Grang") which Bosun ran 2015–2022 — it's personal and meaningful

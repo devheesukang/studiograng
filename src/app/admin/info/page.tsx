@@ -61,11 +61,11 @@ export default function InfoAdminPage() {
   ]
 
   return (
-    <div>
-      <main className="max-w-2xl mx-auto px-6 py-12">
-        <div className="flex items-center justify-between mb-10">
+    <div className="w-full overflow-x-hidden">
+      <main className="w-full max-w-2xl mx-auto px-4 py-10 sm:px-6 sm:py-12">
+        <div className="flex flex-col gap-4 mb-10 sm:flex-row sm:items-center sm:justify-between">
           <h1 className="text-xs tracking-[0.5em] uppercase text-neutral-500">Info</h1>
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center gap-3 sm:gap-4">
             {status === 'saved' && (
               <span className="text-xs text-emerald-400 tracking-widest uppercase">Saved</span>
             )}

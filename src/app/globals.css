@@ -110,6 +110,70 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Admin-only theme. This intentionally does not use the public next-themes state. */
+.admin-shell[data-admin-theme="light"] {
+  color-scheme: light;
+}
+
+.admin-shell[data-admin-theme="light"] .bg-neutral-950 {
+  background-color: #f4f3ef !important;
+}
+
+.admin-shell[data-admin-theme="light"] .bg-neutral-900,
+.admin-shell[data-admin-theme="light"] .bg-neutral-800 {
+  background-color: #ffffff !important;
+}
+
+.admin-shell[data-admin-theme="light"] .bg-white {
+  background-color: #111111 !important;
+}
+
+.admin-shell[data-admin-theme="light"] .text-white,
+.admin-shell[data-admin-theme="light"] .text-neutral-400 {
+  color: #111111 !important;
+}
+
+.admin-shell[data-admin-theme="light"] .text-black {
+  color: #ffffff !important;
+}
+
+.admin-shell[data-admin-theme="light"] .text-neutral-500 {
+  color: #66645f !important;
+}
+
+.admin-shell[data-admin-theme="light"] .text-neutral-600,
+.admin-shell[data-admin-theme="light"] .text-neutral-700 {
+  color: #8a8780 !important;
+}
+
+.admin-shell[data-admin-theme="light"] .border-neutral-800,
+.admin-shell[data-admin-theme="light"] .border-neutral-700 {
+  border-color: #d8d5cf !important;
+}
+
+.admin-shell[data-admin-theme="light"] .border-dashed.border-neutral-700 {
+  border-color: #bbb7af !important;
+}
+
+.admin-shell[data-admin-theme="light"] .placeholder\:text-neutral-700::placeholder,
+.admin-shell[data-admin-theme="light"] .placeholder\:text-neutral-600::placeholder {
+  color: #9b978f !important;
+}
+
+.admin-shell[data-admin-theme="light"] .hover\:text-white:hover {
+  color: #111111 !important;
+}
+
+.admin-shell[data-admin-theme="light"] .hover\:bg-neutral-200:hover {
+  background-color: #333333 !important;
+}
+
+.admin-shell[data-admin-theme="light"] .hover\:border-neutral-600:hover,
+.admin-shell[data-admin-theme="light"] .focus\:border-neutral-600:focus,
+.admin-shell[data-admin-theme="light"] .focus\:border-neutral-500:focus {
+  border-color: #8a8780 !important;
+}
+
 /* Smooth scroll offset for fixed nav */
 [id] {
   scroll-margin-top: 72px;

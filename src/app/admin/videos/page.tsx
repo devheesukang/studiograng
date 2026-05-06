@@ -42,7 +42,7 @@ function SortableVideoRow({
     <div
       ref={setNodeRef}
       style={style}
-      className="flex items-center gap-3 border border-neutral-800 px-3 py-3"
+      className="flex flex-wrap items-center gap-x-3 gap-y-2 border border-neutral-800 px-3 py-3 sm:flex-nowrap"
     >
       <button
         {...attributes}
@@ -53,7 +53,7 @@ function SortableVideoRow({
         ⠿
       </button>
 
-      <div className="flex-1 min-w-0">
+      <div className="min-w-0 flex-1">
         <p className="text-xs text-white truncate">{video.title}</p>
         {video.titleKo && (
           <p className="text-[10px] text-neutral-500 truncate mt-0.5">{video.titleKo}</p>
@@ -61,10 +61,12 @@ function SortableVideoRow({
       </div>
 
       {video.year && (
-        <span className="text-[10px] text-neutral-500 tracking-widest shrink-0">{video.year}</span>
+        <span className="basis-full pl-7 text-[10px] text-neutral-500 tracking-widest sm:basis-auto sm:pl-0 sm:shrink-0">
+          {video.year}
+        </span>
       )}
 
-      <div className="flex items-center gap-3 shrink-0">
+      <div className="flex basis-full items-center gap-3 pl-7 sm:basis-auto sm:pl-0 sm:shrink-0">
         <button
           onClick={onEdit}
           className="text-[10px] tracking-widest uppercase text-neutral-400 hover:text-white transition-colors"
@@ -123,7 +125,7 @@ function VideoForm({
   }
 
   return (
-    <div className="border border-neutral-700 p-5 mb-6 bg-neutral-900">
+    <div className="border border-neutral-700 p-4 mb-6 bg-neutral-900 sm:p-5">
       <p className="text-xs tracking-widest uppercase text-neutral-400 mb-4">
         {initial ? 'Edit Video' : 'Add Video'}
       </p>
@@ -158,7 +160,7 @@ function VideoForm({
           />
         </div>
       </div>
-      <div className="flex gap-3 mt-5">
+      <div className="flex flex-wrap gap-3 mt-5">
         <button
           onClick={handleSave}
           className="bg-white text-black text-xs font-medium px-5 py-2 tracking-widest uppercase hover:bg-neutral-200 transition-colors"
@@ -252,11 +254,11 @@ export default function VideosAdminPage() {
   }
 
   return (
-    <div>
-      <main className="max-w-3xl mx-auto px-6 py-12">
-        <div className="flex items-center justify-between mb-10">
+    <div className="w-full overflow-x-hidden">
+      <main className="w-full max-w-3xl mx-auto px-4 py-10 sm:px-6 sm:py-12">
+        <div className="flex flex-col gap-4 mb-10 sm:flex-row sm:items-center sm:justify-between">
           <h1 className="text-xs tracking-[0.5em] uppercase text-neutral-500">Videos</h1>
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center gap-3 sm:gap-4">
             {status === 'saved' && (
               <span className="text-xs text-emerald-400 tracking-widest uppercase">Saved</span>
             )}

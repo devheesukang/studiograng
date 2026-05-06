@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useState } from 'react'
 
 export type Variant = 'v1' | 'v2' | 'v3'
 
@@ -19,14 +19,11 @@ const VariantContext = createContext<VariantContextValue>({
 })
 
 export function DesignVariantProvider({ children }: { children: React.ReactNode }) {
-  const [variant, setVariantState] = useState<Variant>(DEFAULT)
-
-  useEffect(() => {
+  const [variant, setVariantState] = useState<Variant>(() => {
+    if (typeof window === 'undefined') return DEFAULT
     const stored = localStorage.getItem(STORAGE_KEY) as Variant | null
-    if (stored && VARIANTS.includes(stored)) {
-      setVariantState(stored)
-    }
-  }, [])
+    return stored && VARIANTS.includes(stored) ? stored : DEFAULT
+  })
 
   const setVariant = (v: Variant) => {
     setVariantState(v)
