@@ -8,7 +8,7 @@ export type Category =
   | 'interior'
   | 'rise-website'
 
-export type FilterGroup = 'all' | 'product' | 'portrait' | 'fine-art' | 'ai' | 'interior'
+export type FilterGroup = 'all' | 'cosmetics' | 'product' | 'portrait' | 'fine-art' | 'ai' | 'interior'
 
 export interface Project {
   id: string
@@ -38,6 +38,7 @@ export interface DesignWork {
 
 export const FILTER_LABELS: Record<FilterGroup, string> = {
   all: 'All',
+  cosmetics: 'Cosmetics',
   product: 'Still Life',
   portrait: 'Portrait',
   'fine-art': 'Fine Art',
@@ -50,7 +51,7 @@ export const projects: Project[] = [
     id: 'cosmetics',
     title: 'Cosmetics',
     category: 'cosmetics',
-    filterGroup: 'product',
+    filterGroup: 'cosmetics',
     featured: true,
     images: [
       '/images/cosmetics/foundation-1.jpg',

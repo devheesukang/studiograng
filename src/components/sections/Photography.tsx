@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { projects, FILTER_LABELS, type FilterGroup } from '@/lib/portfolio'
 import { GalleryGrid } from '@/components/ui/GalleryGrid'
 
-const FILTER_GROUPS: FilterGroup[] = ['all', 'product', 'portrait', 'fine-art', 'ai', 'interior']
+const FILTER_GROUPS: FilterGroup[] = ['all', 'cosmetics', 'product', 'portrait', 'fine-art', 'ai', 'interior']
 
 export function Photography() {
   const [active, setActive] = useState<FilterGroup>('all')
