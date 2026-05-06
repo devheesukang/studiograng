@@ -646,12 +646,12 @@ The `FILTER_GROUPS` array in `Photography.tsx` currently includes tabs: `all | p
 #### Checklist
 
 **Image files (copy from `notion_export/portfolio_v2/notion1/only_pics/` — files stay on disk, never deleted):**
-- [ ] Copy 15 new images to `public/images/still-life/`
-- [ ] Copy 3 new images to `public/images/food/`
-- [ ] Copy 7 new images to `public/images/interior/`
-- [ ] Copy 2 new images to `public/images/cosmetics/` (화장품.jpg → cosmetics-full.jpg, 향수1.png → perfume.png)
-- [ ] Copy 2 new images to `public/images/portrait/` (IMG_4212_복사2.jpg → portrait-4.jpg, IMG_5732_복사.jpg → portrait-5.jpg)
-- [ ] Commit: `content: notion v2 — copy new images`
+- [x] Copy 15 new images to `public/images/still-life/`
+- [x] Copy 3 new images to `public/images/food/`
+- [x] Copy 7 new images to `public/images/interior/`
+- [x] Copy 2 new images to `public/images/cosmetics/` (화장품.jpg → cosmetics-full.jpg, 향수1.png → perfume.png)
+- [x] Copy 2 new images to `public/images/portrait/` (IMG_4212_복사2.jpg → portrait-4.jpg, IMG_5732_복사.jpg → portrait-5.jpg)
+- [x] Commit: `content: notion v2 — copy new images`
 
 **`src/lib/portfolio.ts` — deletions from arrays (files stay on disk):**
 - [ ] Remove `glasses` project entry entirely from `projects` array
