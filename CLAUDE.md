@@ -1083,19 +1083,19 @@ Two changes:
 #### Checklist
 
 **Admin nav → sidebar:**
-- [ ] Move `<AdminNav />` from individual page files into `src/app/admin/layout.tsx`
-- [ ] Update `src/app/admin/layout.tsx`: flex row wrapper, `AdminNav` left, content right with `md:ml-48`
-- [ ] Rewrite `src/components/admin/AdminNav.tsx`:
+- [x] Move `<AdminNav />` from individual page files into `src/app/admin/layout.tsx`
+- [x] Update `src/app/admin/layout.tsx`: flex row wrapper, `AdminNav` left, content right with `md:ml-48`
+- [x] Rewrite `src/components/admin/AdminNav.tsx`:
   - Desktop: fixed left sidebar, `w-48`, stacked vertical links
   - Mobile: fixed top bar + hamburger state (`useState`) → slide-out drawer + backdrop
   - Remove `AdminNav` import/JSX from `dashboard`, `photography`, `videos`, `info`, `design` page files
-- [ ] Verify all 5 admin pages render correctly with sidebar (no double nav, no content hidden behind sidebar on mobile)
-- [ ] Commit: `feat: admin sidebar nav — responsive fix`
+- [x] Verify all 5 admin pages render correctly with sidebar (no double nav, no content hidden behind sidebar on mobile)
+- [x] Commit: `feat: admin sidebar nav — responsive fix`
 
 **View Site link + logout redirect:**
-- [ ] Add "View Site →" link in `AdminNav` pointing to `/` with `target="_blank"`
-- [ ] Change `handleLogout` in `AdminNav.tsx` to `router.push('/')` (was `router.push('/admin')`)
-- [ ] Commit: `feat: admin nav — view site link, logout redirects to portfolio`
+- [x] Add "View Site →" link in `AdminNav` pointing to `/` with `target="_blank"`
+- [x] Change `handleLogout` in `AdminNav.tsx` to `router.push('/')` (was `router.push('/admin')`)
+- [x] Commit: `feat: admin sidebar nav — responsive fix, view site link, logout to portfolio`
 
 ---
 
