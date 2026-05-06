@@ -108,40 +108,36 @@ Prefer `_크게` (large) versions over `_복사` (copy) versions where both exis
 
 | Category | Key | Image Count | Description |
 |---|---|---|---|
-| Cosmetics | `cosmetics` | 12 | Beauty/skincare product photography |
-| Watch | `watch` | 5 | Watch product shots incl. PRX model |
-| Glass | `glass` | 3 | Perfume bottles, glass objects |
-| Glasses Cutout | `glasses` | 3 | Clean background eyewear shots |
-| Vase | `vase` | 2 | Still life |
-| Portrait | `portrait` | 6 | 3 subjects, large + web-res pairs |
-| Light Painting | `light-painting` | 5 | Long exposure light art |
+| Cosmetics | `cosmetics` | 11 | Beauty/skincare product photography |
+| Still Life | `still-life` | 15 | Watches, light painting, personal work, vases |
+| Food | `food` | 3 | Food & beverage still life |
+| Portrait | `portrait` | 8 | Portrait subjects, large + web-res |
 | AI Work | `ai-work` | 4 | AI-generated portrait composites |
-| Fine Art | `fine-art` | 7 | Fine art series (순수_강보선 + behind) |
-| Assignment | `assignment` | 4 | University assignment work |
-| Airbnb Interior | `airbnb` | 5 | Airbnb listing interior photography |
-| RISE Campus Interior | `rise-interior` | 5 | Language school campus |
+| Fine Art | `fine-art` | 5 | Fine art series (순수_강보선) |
+| Interior | `interior` | 7 | Airbnb + RISE campus merged |
 | RISE Website Images | `rise-website` | 10 | Commercial: students, teachers, classrooms |
 
 **Gallery groupings for UI filter tabs:**
 - All
-- Still Life (cosmetics, watch, glass, glasses, vase) — filter key: `product`
+- Still Life (cosmetics, still-life, food) — filter key: `product`
 - Portrait
-- Fine Art (fine-art, light-painting, assignment)
+- Fine Art (fine-art only)
 - AI (ai-work) — filter key: `ai`
-- Interior (airbnb, rise-interior, rise-website)
+- Interior (interior, rise-website)
 
 ### Video Projects
 
 Embed via `youtube-nocookie.com`. Show as cards with thumbnail + title + year.
 
-| Title | YouTube URL | Year |
+| Title | YouTube IDs | Year |
 |---|---|---|
-| RISE Campus Tour | https://www.youtube.com/playlist?list=PLRwWCXTQW9LmoaKsVpJ91k8QDC94L4oi4 | — |
-| RISE 학부모 인터뷰 (Parent Interview) | https://www.youtube.com/watch?v=cwtHU1EBCYU | — |
-| RISE 학부모 강연 스케치 (Lecture Sketch) | https://youtu.be/QNbOoEFlRXY | 2024 |
-| 롯데월드 가을 시즌 홍보영상 (Lotte World Autumn) | — | 2024 |
-| 롯데월드 겨울 시즌 홍보영상 (Lotte World Winter) | — | 2024 |
-| RISE 온라인 영어 강의 47편 (Online Lectures) | — | 2022 |
+| RISE Campus Tour | playlist: PLRwWCXTQW9LmoaKsVpJ91k8QDC94L4oi4; ids: NIfNigY9BTM, SpHT7xw2H_8, 40CKVKMa0GM, zYayAeEKgVU, ZsN0wKJjzwk, lwX0TnVOSIo, sPqSIZe9ZWA | — |
+| RISE 학부모 인터뷰 (Parent Interview) | SII47SSbrQ4, ocwCbBGUd3E, _xhvE1EbZlI, Bii3D2FXJgU, _ACOgVSNbFw | — |
+| RISE 학부모 강연 스케치 (Lecture Sketch) | QNbOoEFlRXY | 2024 |
+| 롯데월드 가을 시즌 홍보영상 (Lotte World Autumn) | 2nlyITLXdY0, opO4k4Wro9U, xL1va8khc-c | 2024 |
+| 롯데월드 겨울 시즌 홍보영상 (Lotte World Winter) | AtQdyh_kXz0, 2NIGykeWHKg, UeEYKEIezi8, X5-gw-XTbiI | 2024 |
+| RISE 온라인 영어 강의 47편 (Online Lectures) | zbGUMiUtid0 | 2022 |
+| AI 활용 2D 그래픽 영상 제작 (AI-Assisted 2D Graphic Video) | 1GEKvSYF1qU | 2024 |
 
 ### 2D Design / Illustration
 
@@ -178,19 +174,14 @@ Nothing else. No skills, no career history, no education, no awards on the site.
 │   └── bosun_portfolio/
 │       └── non_folderized/ # All raw images here
 ├── public/
-│   ├── images/             # Organized project images (copy from non_folderized)
+│   ├── images/             # Organized project images (copy from notion_export)
 │   │   ├── cosmetics/
-│   │   ├── watch/
-│   │   ├── glass/
-│   │   ├── glasses/
-│   │   ├── vase/
+│   │   ├── still-life/
+│   │   ├── food/
 │   │   ├── portrait/
-│   │   ├── light-painting/
 │   │   ├── ai-work/
 │   │   ├── fine-art/
-│   │   ├── assignment/
-│   │   ├── airbnb/
-│   │   ├── rise-interior/
+│   │   ├── interior/
 │   │   ├── rise-website/
 │   │   └── design/
 │   └── profile/            # Profile photo
@@ -412,7 +403,7 @@ Phases are completed sequentially. Each ends with a git commit. Check off tasks 
 - [x] Increase info section font sizes, including Photographer & Video Director, email, phone number, and Instagram handle.
 - [x] Commit: `fix: phase 7 client edit round 2`
 
-### Phase 8 — Notion v2 Content Update [ ]
+### Phase 8 — Notion v2 Content Update [x]
 > Source: `notion_export/portfolio_v2/notion1/only_pics/` (new Notion export).
 > Goal: restructure photography categories, add new images, update video data to match v2.
 > Do NOT make any code changes until this phase is explicitly started.
@@ -678,8 +669,8 @@ The `FILTER_GROUPS` array in `Photography.tsx` currently includes tabs: `all | p
 
 **Cleanup (old folder entries retired from `portfolio.ts` — files remain on disk):**
 - [x] Remove `watch`, `glass`, `glasses`, `vase`, `light-painting`, `assignment`, `airbnb`, `rise-interior` project entries once their content is fully migrated into new entries
-- [ ] Update CLAUDE.md content tables to reflect new category structure
-- [ ] Commit: `content: notion v2 — update CLAUDE.md content tables`
+- [x] Update CLAUDE.md content tables to reflect new category structure
+- [x] Commit: `content: notion v2 — update CLAUDE.md content tables`
 
 ---
 
