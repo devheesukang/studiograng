@@ -924,10 +924,13 @@ Public site (gallery, video, info sections)
 - [x] Commit: `feat: admin dashboard`
 
 **Testing & security review:**
-- [ ] Verify unauthenticated requests to all `/admin/*` routes redirect to login
-- [ ] Verify `/api/admin/*` routes return 401 without valid session cookie
-- [ ] Verify public site falls back cleanly if Blob is unreachable
-- [ ] Commit: `chore: admin phase complete`
+- [x] Verify unauthenticated requests to all `/admin/*` routes redirect to login (307 → /admin)
+- [x] Verify `/api/admin/*` routes return 401 without valid session cookie
+- [x] Verify login with wrong password returns 401
+- [x] Verify login with correct password sets session cookie and returns 200
+- [x] Verify `/api/admin/content` with valid cookie returns full config (falls back to portfolio.ts when Blob not configured)
+- [x] Verify public site falls back to portfolio.ts defaults when BLOB_READ_WRITE_TOKEN is not set
+- [x] Commit: `chore: admin phase complete`
 
 ---
 
