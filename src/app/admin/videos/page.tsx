@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { AdminNav } from '@/components/admin/AdminNav'
 import {
   DndContext,
   closestCenter,
@@ -246,18 +245,14 @@ export default function VideosAdminPage() {
 
   if (!config) {
     return (
-      <div className="min-h-screen bg-neutral-950 text-white">
-        <AdminNav />
-        <div className="flex items-center justify-center h-64">
-          <span className="text-xs text-neutral-500 tracking-widest uppercase">Loading…</span>
-        </div>
+      <div className="flex items-center justify-center h-64">
+        <span className="text-xs text-neutral-500 tracking-widest uppercase">Loading…</span>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-white">
-      <AdminNav />
+    <div>
       <main className="max-w-3xl mx-auto px-6 py-12">
         <div className="flex items-center justify-between mb-10">
           <h1 className="text-xs tracking-[0.5em] uppercase text-neutral-500">Videos</h1>

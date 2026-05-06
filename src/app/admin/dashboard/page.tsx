@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { AdminNav } from '@/components/admin/AdminNav'
 
 const SECTIONS = [
   {
@@ -26,8 +25,7 @@ const SECTIONS = [
 
 export default function DashboardPage() {
   return (
-    <div className="min-h-screen bg-neutral-950 text-white">
-      <AdminNav />
+    <div>
       <main className="max-w-3xl mx-auto px-6 py-16">
         <h1 className="text-xs tracking-[0.5em] uppercase text-neutral-500 mb-12">Dashboard</h1>
         <div className="flex flex-col gap-4">
