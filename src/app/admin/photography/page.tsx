@@ -26,6 +26,77 @@ function projectBelongsToFilter(project: ProjectConfig, filterKey: string) {
   return project.id === filterKey || project.filterGroup === filterKey
 }
 
+function sortProjectsByFilterOrder(projects: ProjectConfig[], filterOrder: string[]) {
+  const order = new Map(
+    filterOrder.filter((key) => key !== 'all').map((key, index) => [key, index])
+  )
+
+  return projects
+    .map((project, index) => ({ project, index }))
+    .sort((a, b) => {
+      const aOrder = order.get(a.project.filterGroup ?? a.project.id) ?? Number.MAX_SAFE_INTEGER
+      const bOrder = order.get(b.project.filterGroup ?? b.project.id) ?? Number.MAX_SAFE_INTEGER
+      return aOrder - bOrder || a.index - b.index
+    })
+    .map(({ project }) => project)
+}
+
+function FilterRow({
+  filterKey,
+  label,
+  draggable,
+  onChange,
+  onDelete,
+}: {
+  filterKey: string
+  label: string
+  draggable: boolean
+  onChange: (value: string) => void
+  onDelete: () => void
+}) {
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
+    useSortable({ id: filterKey, disabled: !draggable })
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={{
+        transform: CSS.Transform.toString(transform),
+        transition,
+        opacity: isDragging ? 0.5 : 1,
+      }}
+      className="flex min-w-0 items-center gap-2 border border-neutral-800 px-3 py-2"
+    >
+      <button
+        {...(draggable ? attributes : {})}
+        {...(draggable ? listeners : {})}
+        disabled={!draggable}
+        className="w-5 shrink-0 cursor-grab touch-none text-xs text-neutral-600 disabled:cursor-default disabled:opacity-20"
+        aria-label={draggable ? `Reorder ${label}` : 'All stays first'}
+        title={draggable ? 'Drag to reorder' : 'All stays first'}
+      >
+        ::
+      </button>
+      <span className="w-24 shrink-0 font-mono text-xs text-neutral-600">{filterKey}</span>
+      <input
+        type="text"
+        value={label}
+        onChange={(event) => onChange(event.target.value)}
+        className="min-w-0 flex-1 border-b border-transparent bg-transparent text-xs text-white outline-none focus:border-neutral-600"
+      />
+      <button
+        onClick={onDelete}
+        disabled={!draggable}
+        className="shrink-0 text-xs uppercase tracking-widest transition-colors disabled:cursor-not-allowed disabled:opacity-20"
+        style={{ color: draggable ? '#ef4444' : undefined }}
+        title={draggable ? 'Delete tab' : 'All cannot be deleted'}
+      >
+        X
+      </button>
+    </div>
+  )
+}
+
 // ─── Sortable image tile ───────────────────────────────────────────────────
 
 function SortableImage({
@@ -197,6 +268,7 @@ export default function PhotographyAdminPage() {
   const { config, setConfig, loading } = useAdminContent()
   const [newTabKey, setNewTabKey] = useState('')
   const [newTabLabel, setNewTabLabel] = useState('')
+  const filterSensors = useSensors(useSensor(PointerSensor))
 
   function updatePhotoConfig(updater: (prev: ContentConfig['photography']) => ContentConfig['photography']) {
     setConfig((prev) =>
@@ -322,6 +394,25 @@ export default function PhotographyAdminPage() {
     }))
   }
 
+  function reorderFilters(event: DragEndEvent) {
+    const { active, over } = event
+    if (!over || active.id === over.id) return
+
+    updatePhotoConfig((photo) => {
+      const movableKeys = photo.filterOrder.filter((key) => key !== 'all')
+      const oldIndex = movableKeys.indexOf(String(active.id))
+      const newIndex = movableKeys.indexOf(String(over.id))
+      if (oldIndex < 0 || newIndex < 0) return photo
+
+      const filterOrder = ['all', ...arrayMove(movableKeys, oldIndex, newIndex)]
+      return {
+        ...photo,
+        filterOrder,
+        projects: sortProjectsByFilterOrder(photo.projects, filterOrder),
+      }
+    })
+  }
+
   async function deleteUploadedBlob(src: string): Promise<boolean> {
     if (!getUploadedBlobPathname(src)) return true
 
@@ -398,6 +489,16 @@ export default function PhotographyAdminPage() {
     )
   }
 
+  const normalizedFilterOrder = [
+    'all',
+    ...config.photography.filterOrder.filter((key) => key !== 'all'),
+  ]
+  const movableFilterKeys = normalizedFilterOrder.filter((key) => key !== 'all')
+  const orderedProjects = sortProjectsByFilterOrder(
+    config.photography.projects,
+    normalizedFilterOrder
+  )
+
   return (
     <div className="w-full overflow-x-hidden">
       <main className="w-full max-w-3xl mx-auto px-4 py-8 sm:px-6 sm:py-10">
@@ -405,32 +506,22 @@ export default function PhotographyAdminPage() {
         {/* Filter label editor */}
         <div className="mb-10">
           <p className="text-xs tracking-widest uppercase text-neutral-500 mb-4">Filter Tab Labels</p>
-          <div className="flex flex-col gap-1.5 mb-3">
-            {config.photography.filterOrder.map((key) => {
-              const label = config.photography.filterLabels[key] ?? key
-              const isDeletable = key !== 'all'
-              return (
-                <div key={key} className="flex min-w-0 items-center gap-2 border border-neutral-800 px-3 py-2">
-                  <span className="text-xs text-neutral-600 w-24 shrink-0 font-mono">{key}</span>
-                  <input
-                    type="text"
-                    value={label}
-                    onChange={(e) => updateFilterLabel(key, e.target.value)}
-                    className="bg-transparent text-xs text-white outline-none flex-1 min-w-0 border-b border-transparent focus:border-neutral-600"
+          <DndContext sensors={filterSensors} collisionDetection={closestCenter} onDragEnd={reorderFilters}>
+            <SortableContext items={movableFilterKeys} strategy={verticalListSortingStrategy}>
+              <div className="mb-3 flex flex-col gap-1.5">
+                {normalizedFilterOrder.map((key) => (
+                  <FilterRow
+                    key={key}
+                    filterKey={key}
+                    label={config.photography.filterLabels[key] ?? key}
+                    draggable={key !== 'all'}
+                    onChange={(value) => updateFilterLabel(key, value)}
+                    onDelete={() => key !== 'all' && deleteFilterTab(key)}
                   />
-                  <button
-                    onClick={() => isDeletable && deleteFilterTab(key)}
-                    disabled={!isDeletable}
-                    className="text-xs tracking-widest uppercase shrink-0 transition-colors disabled:opacity-20 disabled:cursor-not-allowed"
-                    style={{ color: isDeletable ? '#ef4444' : undefined }}
-                    title={isDeletable ? 'Delete tab' : '"all" cannot be deleted'}
-                  >
-                    ×
-                  </button>
-                </div>
-              )
-            })}
-          </div>
+                ))}
+              </div>
+            </SortableContext>
+          </DndContext>
 
           {/* Add new filter tab */}
           <div className="flex flex-col gap-2 border border-dashed border-neutral-700 px-3 py-2 sm:flex-row sm:items-center">
@@ -472,7 +563,7 @@ export default function PhotographyAdminPage() {
         {/* Category blocks */}
         <div>
           <p className="text-xs tracking-widest uppercase text-neutral-500 mb-4">Categories</p>
-          {config.photography.projects.map((project) => (
+          {orderedProjects.map((project) => (
             <CategoryBlock
               key={project.id}
               project={project}

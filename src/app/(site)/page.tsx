@@ -10,6 +10,15 @@ export const revalidate = 0
 
 export default async function Home() {
   const config = await getEffectiveConfig()
+  const normalizedFilterOrder = [
+    'all',
+    ...config.photography.filterOrder.filter((key) => key !== 'all'),
+  ]
+  const filterOrder = new Map(
+    normalizedFilterOrder
+      .filter((key) => key !== 'all')
+      .map((key, index) => [key, index])
+  )
 
   const photoProjects = config.photography.projects
     .filter((pc) => pc.visible)
@@ -24,6 +33,13 @@ export default async function Home() {
         images: visibleImages,
       }]
     })
+    .map((project, index) => ({ project, index }))
+    .sort((a, b) => {
+      const aOrder = filterOrder.get(a.project.filterGroup) ?? Number.MAX_SAFE_INTEGER
+      const bOrder = filterOrder.get(b.project.filterGroup) ?? Number.MAX_SAFE_INTEGER
+      return aOrder - bOrder || a.index - b.index
+    })
+    .map(({ project }) => project)
 
   const visibleVideos = config.videos.filter((v) => v.visible)
 
@@ -33,7 +49,7 @@ export default async function Home() {
       <Photography
         projects={photoProjects}
         filterLabels={config.photography.filterLabels}
-        filterOrder={config.photography.filterOrder}
+        filterOrder={normalizedFilterOrder}
       />
       <Video videos={visibleVideos} />
       <Design />
