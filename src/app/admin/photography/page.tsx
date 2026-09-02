@@ -19,6 +19,7 @@ import {
 import { CSS } from '@dnd-kit/utilities'
 import { upload } from '@vercel/blob/client'
 import { useAdminContent } from '@/components/admin/AdminContentProvider'
+import { ImageLightbox } from '@/components/ui/ImageLightbox'
 import { getUploadedBlobPathname } from '@/lib/blobPath'
 import type { ContentConfig, ProjectConfig, ImageEntry } from '@/lib/adminContent'
 
@@ -108,6 +109,7 @@ function SortableImage({
   onToggle: () => void
   onDelete: () => void
 }) {
+  const [previewOpen, setPreviewOpen] = useState(false)
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
     useSortable({ id: entry.src })
 
@@ -134,9 +136,14 @@ function SortableImage({
       </button>
 
       {/* Thumbnail */}
-      <div className="w-10 h-10 relative shrink-0 bg-neutral-800 overflow-hidden">
+      <button
+        type="button"
+        onClick={() => setPreviewOpen(true)}
+        className="relative h-10 w-10 shrink-0 cursor-zoom-in overflow-hidden bg-neutral-800 focus-visible:outline-2 focus-visible:outline-white"
+        aria-label="Open image preview"
+      >
         <Image src={entry.src} alt="" fill className="object-cover" unoptimized />
-      </div>
+      </button>
 
       {/* Filename */}
       <span className="text-xs text-neutral-400 truncate flex-1 min-w-0">
@@ -160,6 +167,13 @@ function SortableImage({
       >
         Del
       </button>
+      {previewOpen ? (
+        <ImageLightbox
+          src={entry.src}
+          alt={entry.src.split('/').pop() ?? 'Image'}
+          onClose={() => setPreviewOpen(false)}
+        />
+      ) : null}
     </div>
   )
 }

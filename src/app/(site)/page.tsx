@@ -41,7 +41,19 @@ export default async function Home() {
     })
     .map(({ project }) => project)
 
-  const visibleVideos = config.videos.filter((v) => v.visible)
+  const videoFilterOrder = ['all', ...config.video.filterOrder.filter((key) => key !== 'all')]
+  const videoOrder = new Map(
+    videoFilterOrder.filter((key) => key !== 'all').map((key, index) => [key, index])
+  )
+  const visibleVideos = config.videos
+    .filter((video) => video.visible)
+    .map((video, index) => ({ video, index }))
+    .sort((a, b) => {
+      const aOrder = videoOrder.get(a.video.filterGroup ?? 'videos') ?? Number.MAX_SAFE_INTEGER
+      const bOrder = videoOrder.get(b.video.filterGroup ?? 'videos') ?? Number.MAX_SAFE_INTEGER
+      return aOrder - bOrder || a.index - b.index
+    })
+    .map(({ video }) => video)
 
   return (
     <>
@@ -51,7 +63,11 @@ export default async function Home() {
         filterLabels={config.photography.filterLabels}
         filterOrder={normalizedFilterOrder}
       />
-      <Video videos={visibleVideos} />
+      <Video
+        videos={visibleVideos}
+        filterLabels={config.video.filterLabels}
+        filterOrder={videoFilterOrder}
+      />
       <Design />
       <Info info={config.info} />
     </>

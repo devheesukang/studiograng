@@ -1,16 +1,21 @@
 'use client'
 
+import { useState } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { designWork } from '@/lib/portfolio'
+import { ImageLightbox } from '@/components/ui/ImageLightbox'
 
 export function Design() {
+  const [selected, setSelected] = useState<{ src: string; alt: string } | null>(null)
+
   return (
-    <section
-      id="design"
-      className="py-24 md:py-32 px-6 md:px-12 lg:px-20 border-t"
-      style={{ borderColor: 'var(--line)' }}
-    >
+    <>
+      <section
+        id="design"
+        className="py-24 md:py-32 px-6 md:px-12 lg:px-20 border-t"
+        style={{ borderColor: 'var(--line)' }}
+      >
       <motion.p
         className="text-[9px] tracking-[0.5em] uppercase mb-12 md:mb-16"
         style={{ color: 'var(--muted)' }}
@@ -67,20 +72,35 @@ export function Design() {
                     ease: [0.25, 0.1, 0.25, 1] as [number, number, number, number],
                   }}
                 >
-                  <Image
-                    src={src}
-                    alt={work.title}
-                    width={600}
-                    height={800}
-                    className="w-full h-auto block transition-transform duration-700 group-hover:scale-[1.03]"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                  />
+                  <button
+                    type="button"
+                    onClick={() => setSelected({ src, alt: work.title })}
+                    className="block w-full cursor-zoom-in focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-white"
+                    aria-label={`Open ${work.title} preview`}
+                  >
+                    <Image
+                      src={src}
+                      alt={work.title}
+                      width={600}
+                      height={800}
+                      className="block h-auto w-full transition-transform duration-700 group-hover:scale-[1.03]"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    />
+                  </button>
                 </motion.div>
               ))}
             </div>
           </motion.div>
         ))}
       </div>
-    </section>
+      </section>
+      {selected ? (
+        <ImageLightbox
+          src={selected.src}
+          alt={selected.alt}
+          onClose={() => setSelected(null)}
+        />
+      ) : null}
+    </>
   )
 }

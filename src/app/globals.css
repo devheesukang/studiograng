@@ -110,6 +110,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.image-lightbox-protected {
+  -webkit-touch-callout: none;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
 button:not(:disabled),
 [role="button"]:not(:disabled) {
   cursor: pointer;

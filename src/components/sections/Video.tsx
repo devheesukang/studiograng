@@ -1,6 +1,7 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { useMemo, useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 import type { VideoConfig } from '@/lib/adminContent'
 
 function getEmbedUrl(video: VideoConfig): string | null {
@@ -94,31 +95,67 @@ function VideoCard({ video, index }: { video: VideoConfig; index: number }) {
 
 interface Props {
   videos: VideoConfig[]
+  filterLabels: Record<string, string>
+  filterOrder: string[]
 }
 
-export function Video({ videos }: Props) {
+export function Video({ videos, filterLabels, filterOrder }: Props) {
+  const [active, setActive] = useState('all')
+  const visibleVideos = useMemo(
+    () => active === 'all'
+      ? videos
+      : videos.filter((video) => (video.filterGroup ?? 'videos') === active),
+    [active, videos]
+  )
+
   return (
     <section
       id="video"
       className="py-24 md:py-32 px-6 md:px-12 lg:px-20 border-t"
       style={{ borderColor: 'var(--line)' }}
     >
-      <motion.p
-        className="text-[9px] tracking-[0.5em] uppercase mb-12 md:mb-16"
-        style={{ color: 'var(--muted)' }}
+      <motion.div
+        className="mb-12 md:mb-16"
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
       >
-        Video
-      </motion.p>
+        <p className="mb-4 text-[9px] uppercase tracking-[0.5em]" style={{ color: 'var(--muted)' }}>
+          Video
+        </p>
+        <div className="flex flex-wrap gap-1">
+          {filterOrder.map((group) => (
+            <button
+              key={group}
+              onClick={() => setActive(group)}
+              className="px-5 py-2 text-xs uppercase tracking-widest transition-all duration-300"
+              style={{
+                background: active === group ? 'var(--fg)' : 'transparent',
+                color: active === group ? 'var(--bg)' : 'var(--muted)',
+                border: '1px solid',
+                borderColor: active === group ? 'var(--fg)' : 'var(--line)',
+              }}
+            >
+              {filterLabels[group] ?? group}
+            </button>
+          ))}
+        </div>
+      </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 lg:gap-14">
-        {videos.map((video, i) => (
-          <VideoCard key={video.id} video={video} index={i} />
-        ))}
-      </div>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={active}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-10 lg:gap-14"
+        >
+          {visibleVideos.map((video, index) => (
+            <VideoCard key={video.id} video={video} index={index} />
+          ))}
+        </motion.div>
+      </AnimatePresence>
     </section>
   )
 }

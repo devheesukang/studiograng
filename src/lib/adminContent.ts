@@ -18,6 +18,7 @@ export interface ProjectConfig {
 
 export interface VideoConfig {
   id: string
+  filterGroup?: string
   visible: boolean
   title: string
   titleKo: string
@@ -33,6 +34,10 @@ export interface ContentConfig {
     filterLabels: Record<string, string>
     filterOrder: string[]
     projects: ProjectConfig[]
+  }
+  video: {
+    filterLabels: Record<string, string>
+    filterOrder: string[]
   }
   videos: VideoConfig[]
   info: {
@@ -57,8 +62,13 @@ export function buildDefaultConfig(): ContentConfig {
         images: p.images.map((src) => ({ src, visible: true })),
       })),
     },
+    video: {
+      filterLabels: { all: 'All', videos: 'Videos' },
+      filterOrder: ['all', 'videos'],
+    },
     videos: videos.map((v) => ({
       id: v.id,
+      filterGroup: 'videos',
       visible: true,
       title: v.title,
       titleKo: v.titleKo,
@@ -99,7 +109,24 @@ async function _readContentConfig(): Promise<ContentConfig | null> {
     const { get } = await import('@vercel/blob')
     const result = await get(BLOB_KEY, { access: BLOB_ACCESS, useCache: false })
     if (!result || result.statusCode !== 200) return null
-    return JSON.parse(await streamToText(result.stream)) as ContentConfig
+    const saved = JSON.parse(await streamToText(result.stream)) as Partial<ContentConfig>
+    const defaults = buildDefaultConfig()
+    const video = saved.video ?? defaults.video
+
+    return {
+      ...defaults,
+      ...saved,
+      photography: saved.photography ?? defaults.photography,
+      video: {
+        filterLabels: { ...video.filterLabels, all: video.filterLabels.all ?? 'All' },
+        filterOrder: ['all', ...video.filterOrder.filter((key) => key !== 'all')],
+      },
+      videos: (saved.videos ?? defaults.videos).map((item) => ({
+        ...item,
+        filterGroup: item.filterGroup ?? 'videos',
+      })),
+      info: saved.info ?? defaults.info,
+    }
   } catch {
     return null
   }
