@@ -17,6 +17,7 @@ import {
   arrayMove,
 } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
+import { upload } from '@vercel/blob/client'
 import { useAdminContent } from '@/components/admin/AdminContentProvider'
 import { getUploadedBlobPathname } from '@/lib/blobPath'
 import type { ContentConfig, ProjectConfig, ImageEntry } from '@/lib/adminContent'
@@ -283,22 +284,27 @@ export default function PhotographyAdminPage() {
   }
 
   async function handleUpload(projectId: string, file: File) {
-    const formData = new FormData()
-    formData.append('file', file)
-    const res = await fetch('/api/admin/upload', { method: 'POST', body: formData })
-    if (!res.ok) {
-      alert('Upload failed.')
-      return
+    try {
+      const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_')
+      const blob = await upload(`uploads/${Date.now()}-${safeName}`, file, {
+        access: 'private',
+        handleUploadUrl: '/api/admin/upload',
+        multipart: true,
+      })
+      const url = `/api/blob/${blob.pathname}`
+
+      updatePhotoConfig((photo) => ({
+        ...photo,
+        projects: photo.projects.map((p) =>
+          p.id === projectId
+            ? { ...p, images: [...p.images, { src: url, visible: true }] }
+            : p
+        ),
+      }))
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Upload failed.'
+      alert(`Upload failed: ${message}`)
     }
-    const { url } = await res.json()
-    updatePhotoConfig((photo) => ({
-      ...photo,
-      projects: photo.projects.map((p) =>
-        p.id === projectId
-          ? { ...p, images: [...p.images, { src: url, visible: true }] }
-          : p
-      ),
-    }))
   }
 
   function updateFilterLabel(key: string, value: string) {
