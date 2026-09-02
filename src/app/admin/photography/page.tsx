@@ -18,11 +18,12 @@ import {
 } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { useAdminContent } from '@/components/admin/AdminContentProvider'
-import { projects as defaultProjects } from '@/lib/portfolio'
 import { getUploadedBlobPathname } from '@/lib/blobPath'
 import type { ContentConfig, ProjectConfig, ImageEntry } from '@/lib/adminContent'
 
-const DEFAULT_PROJECT_IDS = new Set(defaultProjects.map((project) => project.id))
+function projectBelongsToFilter(project: ProjectConfig, filterKey: string) {
+  return project.id === filterKey || project.filterGroup === filterKey
+}
 
 // ─── Sortable image tile ───────────────────────────────────────────────────
 
@@ -236,14 +237,40 @@ export default function PhotographyAdminPage() {
       return
     }
 
-    updatePhotoConfig((photo) => ({
-      ...photo,
-      projects: photo.projects.map((p) =>
-        p.id === projectId
-          ? { ...p, images: p.images.filter((img) => img.src !== src) }
-          : p
-      ),
-    }))
+    updatePhotoConfig((photo) => {
+      const project = photo.projects.find((item) => item.id === projectId)
+      if (!project) return photo
+
+      const remainingImages = project.images.filter((image) => image.src !== src)
+      if (remainingImages.length > 0) {
+        return {
+          ...photo,
+          projects: photo.projects.map((item) =>
+            item.id === projectId ? { ...item, images: remainingImages } : item
+          ),
+        }
+      }
+
+      const filterKey = project.filterGroup ?? project.id
+      const remainingProjects = photo.projects.filter((item) => item.id !== projectId)
+      const filterStillUsed = remainingProjects.some((item) =>
+        projectBelongsToFilter(item, filterKey)
+      )
+      const filterLabels = { ...photo.filterLabels }
+
+      if (!filterStillUsed && filterKey !== 'all') {
+        delete filterLabels[filterKey]
+      }
+
+      return {
+        ...photo,
+        filterLabels,
+        filterOrder: !filterStillUsed && filterKey !== 'all'
+          ? photo.filterOrder.filter((key) => key !== filterKey)
+          : photo.filterOrder,
+        projects: remainingProjects,
+      }
+    })
   }
 
   function reorderImages(projectId: string, images: ImageEntry[]) {
@@ -287,25 +314,31 @@ export default function PhotographyAdminPage() {
   async function deleteUploadedBlob(src: string): Promise<boolean> {
     if (!getUploadedBlobPathname(src)) return true
 
-    const res = await fetch('/api/admin/blob', {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ src }),
-    })
+    try {
+      const res = await fetch('/api/admin/blob', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ src }),
+      })
 
-    return res.ok
+      return res.ok
+    } catch {
+      return false
+    }
   }
 
   async function deleteFilterTab(key: string) {
-    const confirmed = confirm('Delete this tab? Custom categories will also delete uploaded Blob images inside them.')
+    const confirmed = confirm('Delete this tab and every category and image assigned to it?')
     if (!confirmed) return
 
-    const customProject = config?.photography.projects.find((project) => (
-      project.id === key && !DEFAULT_PROJECT_IDS.has(project.id)
-    ))
+    const matchingProjects = config?.photography.projects.filter((project) =>
+      projectBelongsToFilter(project, key)
+    ) ?? []
 
-    if (customProject?.images.length) {
-      const uploadedImages = customProject.images.filter((image) => getUploadedBlobPathname(image.src))
+    if (matchingProjects.length) {
+      const uploadedImages = matchingProjects.flatMap((project) =>
+        project.images.filter((image) => getUploadedBlobPathname(image.src))
+      )
       const deleted = await Promise.all(uploadedImages.map((image) => deleteUploadedBlob(image.src)))
 
       if (deleted.some((ok) => !ok)) {
@@ -321,9 +354,7 @@ export default function PhotographyAdminPage() {
         ...photo,
         filterLabels: rest,
         filterOrder: photo.filterOrder.filter((k) => k !== key),
-        projects: photo.projects.filter((project) => (
-          DEFAULT_PROJECT_IDS.has(project.id) || project.id !== key
-        )),
+        projects: photo.projects.filter((project) => !projectBelongsToFilter(project, key)),
       }
     })
   }
