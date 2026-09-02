@@ -286,7 +286,12 @@ export default function PhotographyAdminPage() {
   async function handleUpload(projectId: string, file: File) {
     try {
       const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_')
-      const blob = await upload(`uploads/${Date.now()}-${safeName}`, file, {
+      const extensionIndex = safeName.lastIndexOf('.')
+      const hasExtension = extensionIndex > 0
+      const basename = hasExtension ? safeName.slice(0, extensionIndex) : safeName
+      const extension = hasExtension ? safeName.slice(extensionIndex) : ''
+      const pathname = `uploads/${basename}-${Date.now()}${extension}`
+      const blob = await upload(pathname, file, {
         access: 'private',
         handleUploadUrl: '/api/admin/upload',
         multipart: true,
