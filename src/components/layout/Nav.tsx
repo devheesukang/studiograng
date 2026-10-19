@@ -25,27 +25,33 @@ export function Nav() {
   const [activeSection, setActiveSection] = useState('')
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
-
-  useEffect(() => {
-    const ids = NAV_LINKS.map((l) => l.href.slice(1))
-    const observers: IntersectionObserver[] = []
-
-    ids.forEach((id) => {
-      const el = document.getElementById(id)
-      if (!el) return
-      const obs = new IntersectionObserver(
-        ([entry]) => { if (entry.isIntersecting) setActiveSection(id) },
-        { threshold: 0.4 }
-      )
-      obs.observe(el)
-      observers.push(obs)
-    })
-
-    return () => observers.forEach((o) => o.disconnect())
+    let frame = 0
+    const updateSection = () => {
+      frame = 0
+      setScrolled(window.scrollY > 60)
+      let current = ''
+      for (const { href } of NAV_LINKS) {
+        const section = document.getElementById(href.slice(1))
+        if (section && section.getBoundingClientRect().top <= NAV_HEIGHT + 1) {
+          current = section.id
+        }
+      }
+      setActiveSection(current)
+    }
+    const scheduleUpdate = () => {
+      if (!frame) frame = window.requestAnimationFrame(updateSection)
+    }
+    window.addEventListener('scroll', scheduleUpdate, { passive: true })
+    window.addEventListener('resize', scheduleUpdate)
+    const observer = new ResizeObserver(scheduleUpdate)
+    observer.observe(document.body)
+    scheduleUpdate()
+    return () => {
+      window.removeEventListener('scroll', scheduleUpdate)
+      window.removeEventListener('resize', scheduleUpdate)
+      observer.disconnect()
+      window.cancelAnimationFrame(frame)
+    }
   }, [])
 
   useEffect(() => {
@@ -83,6 +89,7 @@ export function Nav() {
                 <li key={href}>
                   <a
                     href={href}
+                    aria-current={activeSection === id ? 'location' : undefined}
                     onClick={(e) => { e.preventDefault(); scrollToSection(id) }}
                     className={`text-xs tracking-widest uppercase transition-opacity ${
                       activeSection === id ? 'opacity-100' : 'opacity-40 hover:opacity-80'
@@ -136,8 +143,9 @@ export function Nav() {
             <li key={href}>
               <a
                 href={href}
+                aria-current={activeSection === href.slice(1) ? 'location' : undefined}
                 onClick={(e) => { e.preventDefault(); setMenuOpen(false); scrollToSection(href.slice(1)) }}
-                className="text-2xl tracking-widest uppercase opacity-80 hover:opacity-100 transition-opacity"
+                className={`text-2xl tracking-widest uppercase transition-opacity ${activeSection === href.slice(1) ? 'opacity-100' : 'opacity-40 hover:opacity-80'}`}
                 style={{ fontFamily: 'var(--grang-font-display)' }}
               >
                 {label}

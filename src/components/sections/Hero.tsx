@@ -1,6 +1,8 @@
 'use client'
 
 import Image from 'next/image'
+import type { ContentConfig } from '@/lib/adminContent'
+import { InstagramLink } from '@/components/InstagramLink'
 import { motion } from 'framer-motion'
 import { useVariant } from '@/lib/design-variant'
 
@@ -20,7 +22,11 @@ const fadeUp = {
 const heroBg = '/images/cosmetics/foundation-1.jpg'
 
 /* ─── V1: Cinematic / Gold ──────────────────────────────────── */
-function HeroV1() {
+interface Props {
+  info: ContentConfig['info']
+}
+
+function HeroV1({ info }: Props) {
   return (
     <section
       id="hero"
@@ -72,19 +78,26 @@ function HeroV1() {
           Studio Grang
         </motion.h1>
 
-        <motion.p
+        <motion.div
           custom={1}
           variants={fadeUp}
           initial="hidden"
           animate="show"
-          className="mt-4 text-lg md:text-xl italic"
+          className="mt-4 flex flex-col items-start gap-1 text-lg md:text-xl italic"
           style={{
             fontFamily: 'var(--font-cormorant)',
             color: 'var(--muted)',
           }}
         >
-          Photography &amp; Video Direction
-        </motion.p>
+          <p>Photography &amp; Video Direction</p>
+          <a
+            href={`mailto:${info.email}`}
+            className="transition-opacity hover:opacity-60"
+          >
+            {info.email}
+          </a>
+          <InstagramLink handle={info.instagram} inheritTypography />
+        </motion.div>
       </div>
 
       {/* Scroll chevron */}
@@ -315,9 +328,9 @@ function HeroV3() {
 }
 
 /* ─── Switcher ─────────────────────────────────────────────── */
-export function Hero() {
+export function Hero({ info }: Props) {
   const { variant } = useVariant()
   if (variant === 'v2') return <HeroV2 />
   if (variant === 'v3') return <HeroV3 />
-  return <HeroV1 />
+  return <HeroV1 info={info} />
 }

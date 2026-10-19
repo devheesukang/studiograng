@@ -81,7 +81,7 @@ export function buildDefaultConfig(): ContentConfig {
       bio: 'Visual storyteller based in Seoul, specializing in brand and content direction.',
       email: 'wolfkang0514@naver.com',
       phone: '010-6401-0514',
-      instagram: 'studio.grang',
+      instagram: 'studiograng',
     },
   }
 }
@@ -112,6 +112,7 @@ async function _readContentConfig(): Promise<ContentConfig | null> {
     const saved = JSON.parse(await streamToText(result.stream)) as Partial<ContentConfig>
     const defaults = buildDefaultConfig()
     const video = saved.video ?? defaults.video
+    const info = saved.info ?? defaults.info
 
     return {
       ...defaults,
@@ -125,7 +126,11 @@ async function _readContentConfig(): Promise<ContentConfig | null> {
         ...item,
         filterGroup: item.filterGroup ?? 'videos',
       })),
-      info: saved.info ?? defaults.info,
+      info: {
+        ...info,
+        // Migrate the previous studio handle in already-saved content.
+        instagram: info.instagram === 'studio.grang' ? 'studiograng' : info.instagram,
+      },
     }
   } catch {
     return null

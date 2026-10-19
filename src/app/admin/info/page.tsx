@@ -30,7 +30,7 @@ export default function InfoAdminPage() {
     },
     { key: 'email', label: 'Email', placeholder: 'wolfkang0514@naver.com' },
     { key: 'phone', label: 'Phone', placeholder: '010-6401-0514' },
-    { key: 'instagram', label: 'Instagram handle (no @)', placeholder: 'studio.grang' },
+    { key: 'instagram', label: 'Instagram handle (no @)', placeholder: 'studiograng' },
   ]
 
   return (

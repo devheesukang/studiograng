@@ -57,7 +57,7 @@ export default async function Home() {
 
   return (
     <>
-      <Hero />
+      <Hero info={config.info} />
       <Photography
         projects={photoProjects}
         filterLabels={config.photography.filterLabels}

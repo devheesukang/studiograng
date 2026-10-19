@@ -375,7 +375,7 @@ Phases are completed sequentially. Each ends with a git commit. Check off tasks 
 **Info section — contact details:**
 - [x] `src/components/sections/Info.tsx`: add `lowercase` class (or `style={{ textTransform: 'lowercase' }}`) to email `<a>` element
 - [x] Add phone number `010-6401-0514` below email, same minimal style
-- [x] Add Instagram row: gray Instagram SVG icon + `studio.grang` handle as `<a href="https://www.instagram.com/studio.grang/" target="_blank" rel="noopener noreferrer">`, hover opacity
+- [x] Add Instagram row: gray Instagram SVG icon + `studiograng` handle as `<a href="https://www.instagram.com/studiograng/" target="_blank" rel="noopener noreferrer">`, hover opacity
 - [x] Commit: `feat: info section — lowercase email, phone, Instagram link`
 
 **Image download protection:**
@@ -843,7 +843,7 @@ Public site (gallery, video, info sections)
     "bio": "Visual storyteller based in Seoul, specializing in brand and content direction.",
     "email": "wolfkang0514@naver.com",
     "phone": "010-6401-0514",
-    "instagram": "studio.grang"
+    "instagram": "studiograng"
   }
 }
 ```
