@@ -61,7 +61,7 @@ function HeroV1({ info }: Props) {
       />
 
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto w-full">
+      <div className="relative z-20 max-w-7xl mx-auto w-full">
         <motion.h1
           custom={0}
           variants={fadeUp}
@@ -83,13 +83,12 @@ function HeroV1({ info }: Props) {
           variants={fadeUp}
           initial="hidden"
           animate="show"
-          className="mt-4 flex flex-col items-start gap-1 text-lg md:text-xl italic"
+          className="mt-4 flex flex-col items-start gap-2 text-lg md:text-xl"
           style={{
-            fontFamily: 'var(--font-cormorant)',
+            fontFamily: 'var(--grang-font-body)',
             color: 'var(--muted)',
           }}
         >
-          <p>Photography &amp; Video Direction</p>
           <a
             href={`mailto:${info.email}`}
             className="transition-opacity hover:opacity-60"

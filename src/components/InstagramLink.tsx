@@ -5,7 +5,7 @@ export function InstagramLink({ handle, inheritTypography = false }: { handle: s
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 transition-opacity hover:opacity-60"
-            style={{ color: 'var(--muted)' }}
+            style={{ color: inheritTypography ? 'inherit' : 'var(--muted)' }}
           >
             <svg
               width="16"
