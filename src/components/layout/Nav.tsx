@@ -36,6 +36,16 @@ export function Nav() {
           current = section.id
         }
       }
+      // Short final sections cannot always reach the fixed header.
+      const atBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2
+      if (atBottom && window.scrollY > 0) {
+        for (const { href } of NAV_LINKS) {
+          const section = document.getElementById(href.slice(1))
+          if (section && section.getBoundingClientRect().top < window.innerHeight) {
+            current = section.id
+          }
+        }
+      }
       setActiveSection(current)
     }
     const scheduleUpdate = () => {
